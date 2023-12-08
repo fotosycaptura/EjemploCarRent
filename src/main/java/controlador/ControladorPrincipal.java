@@ -52,7 +52,10 @@ public class ControladorPrincipal implements ActionListener {
         } else if (command.equals(getVista().VEHICULOS)) {
             System.out.println("HAGO CLICK AL VEHICULOS");
         } else if (command.equals(getVista().SALIR)) {
-            System.out.println("HAGO CLICK AL SALIR");
+            System.out.println("Finalizando...");
+            System.exit(0);
+
+            //System.out.println("HAGO CLICK AL SALIR");
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }
