@@ -9,6 +9,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import vista.InterfazPrincipal;
 
@@ -45,21 +46,22 @@ public class ControladorPrincipal implements ActionListener {
         String command = e.getActionCommand();
         
         if (command.equals(getVista().ARRIENDOS)) {
+            JOptionPane.showMessageDialog(getControladorClientes().getVista().getPanel(), "Opción no implementada", "Arriendos", JOptionPane.OK_OPTION);
             System.out.println("HAGO CLICK AL ARRIENDO");
         } else if (command.equals(getVista().CLIENTES)) {
             getVista().getPanel().setVisible(false);
             contenido.add(getControladorClientes().getVista().getPanel());
         } else if (command.equals(getVista().VEHICULOS)) {
             System.out.println("HAGO CLICK AL VEHICULOS");
+            JOptionPane.showMessageDialog(getControladorClientes().getVista().getPanel(), "Opción no implementada", "Vehículos", JOptionPane.OK_OPTION);
         } else if (command.equals(getVista().SALIR)) {
-            System.out.println("Finalizando...");
+            int valor = JOptionPane.showConfirmDialog(getControladorClientes().getVista().getPanel(), "¿Está seguro que desea salir?", "Finalizar sistema", JOptionPane.OK_CANCEL_OPTION);
+            if (valor == JOptionPane.OK_OPTION){
+                System.out.println("Finalizando...");
             System.exit(0);
-
-            //System.out.println("HAGO CLICK AL SALIR");
-        } else {
-            throw new UnsupportedOperationException("Acción no implementada.");
+            }
         }
-        
+
         contenido.validate();
         contenido.repaint();
     }
