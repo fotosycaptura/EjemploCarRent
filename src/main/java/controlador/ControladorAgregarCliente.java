@@ -54,15 +54,17 @@ public class ControladorAgregarCliente implements ActionListener {
             
             //Luego de ingresar el nuevo cliente, se ha de limpiar el formulario.
             getVista().vaciarCampos();
+            //Se despliega mensaje al usuario de que el cliente fue agregado.
             getVista().mostrarMensaje("¡Cliente agregado!");
+            
             //Comenté esto para desplegar mensaje de que se agregó, por si desea agregar otro.
             //Porque si quiere salir de esta ventana, ya tiene el botón volver.
-            
             //Se elimina el panel
             //contenido.remove(getVista().getPanel());
             //Se vuelve a mostrar el panel anterior
             //contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
             }catch(Exception ex){
+                //Se despliega el mensaje de error al usuario
                 getVista().mostrarMensaje("Se produjo el siguiente error: " + ex.getMessage());
             }
         } else {
