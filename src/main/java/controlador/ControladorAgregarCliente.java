@@ -37,6 +37,7 @@ public class ControladorAgregarCliente implements ActionListener {
             //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
         } else if (command.equals(getVista().AGREGAR)) {
+            try{
             /**
              * Toca crear un nuevo cliente.
              * Se obtienen los datos de la vista.
@@ -49,7 +50,6 @@ public class ControladorAgregarCliente implements ActionListener {
              * De la vista, al objeto listarClientes, se le agrega el ArrayList en este caso es Modelo.
              * En el fondo lo que se hace acá, es colocar el listado de clientes por decirlo así, en el JScrollpane
              */
-            
             getVista().listarClientes(getModelo());
             
             //Luego de ingresar el nuevo cliente, se ha de limpiar el formulario.
@@ -62,6 +62,9 @@ public class ControladorAgregarCliente implements ActionListener {
             //contenido.remove(getVista().getPanel());
             //Se vuelve a mostrar el panel anterior
             //contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
+            }catch(Exception ex){
+                getVista().mostrarMensaje("Se produjo el siguiente error: " + ex.getMessage());
+            }
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }
