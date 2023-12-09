@@ -30,15 +30,38 @@ public class ControladorAgregarCliente implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Container contenido = getVista().getPanel().getParent();
         String command = e.getActionCommand();
-        
+        //Verifica las acciones
         if (command.equals(getVista().VOLVER)) {
+            //Se remueve el panel
             contenido.remove(getVista().getPanel());
+            //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
         } else if (command.equals(getVista().AGREGAR)) {
+            /**
+             * Toca crear un nuevo cliente.
+             * Se obtienen los datos de la vista.
+             */
             Cliente nuevoCliente = new Cliente(getVista().getRut(), getVista().getNombre(), true);
+            //Se agrega al ArrayList<Cliente> del modelo
             getModelo().add(nuevoCliente);
-            contenido.remove(getVista().getPanel());
-            contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
+            
+            /**
+             * De la vista, al objeto listarClientes, se le agrega el ArrayList en este caso es Modelo.
+             * En el fondo lo que se hace acá, es colocar el listado de clientes por decirlo así, en el JScrollpane
+             */
+            
+            getVista().listarClientes(getModelo());
+            
+            //Luego de ingresar el nuevo cliente, se ha de limpiar el formulario.
+            getVista().vaciarCampos();
+            getVista().mostrarMensaje("¡Cliente agregado!");
+            //Comenté esto para desplegar mensaje de que se agregó, por si desea agregar otro.
+            //Porque si quiere salir de esta ventana, ya tiene el botón volver.
+            
+            //Se elimina el panel
+            //contenido.remove(getVista().getPanel());
+            //Se vuelve a mostrar el panel anterior
+            //contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }
