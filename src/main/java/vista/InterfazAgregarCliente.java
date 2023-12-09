@@ -22,5 +22,6 @@ public interface InterfazAgregarCliente {
     public String getNombre();
     public String getRut();
     public void vaciarCampos();
+    public void mostrarMensaje(String msj);
     public void listarClientes(ArrayList<Cliente> clientes);
 }
