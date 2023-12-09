@@ -42,6 +42,7 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        listaClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(listaClientes);
 
         Volver.setText("Volver");
