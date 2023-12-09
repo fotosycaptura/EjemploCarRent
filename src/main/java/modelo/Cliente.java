@@ -130,5 +130,15 @@ public class Cliente {
         }
         return (RutDigito);
     }
+    
+    public static Boolean encontrarCliente(String cedula, ArrayList<Cliente> clientes){
+        for (Cliente cliente: clientes){
+            if (cliente.getCedula().equals(cedula)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

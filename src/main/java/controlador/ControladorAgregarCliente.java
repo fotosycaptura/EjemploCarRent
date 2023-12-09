@@ -38,31 +38,34 @@ public class ControladorAgregarCliente implements ActionListener {
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
         } else if (command.equals(getVista().AGREGAR)) {
             try{
-            /**
-             * Toca crear un nuevo cliente.
-             * Se obtienen los datos de la vista.
-             */
-            Cliente nuevoCliente = new Cliente(getVista().getRut(), getVista().getNombre(), true);
-            //Se agrega al ArrayList<Cliente> del modelo
-            getModelo().add(nuevoCliente);
-            
-            /**
-             * De la vista, al objeto listarClientes, se le agrega el ArrayList en este caso es Modelo.
-             * En el fondo lo que se hace acá, es colocar el listado de clientes por decirlo así, en el JScrollpane
-             */
-            getVista().listarClientes(getModelo());
-            
-            //Luego de ingresar el nuevo cliente, se ha de limpiar el formulario.
-            getVista().vaciarCampos();
-            //Se despliega mensaje al usuario de que el cliente fue agregado.
-            getVista().mostrarMensaje("¡Cliente agregado!");
-            
-            //Comenté esto para desplegar mensaje de que se agregó, por si desea agregar otro.
-            //Porque si quiere salir de esta ventana, ya tiene el botón volver.
-            //Se elimina el panel
-            //contenido.remove(getVista().getPanel());
-            //Se vuelve a mostrar el panel anterior
-            //contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
+                if (Cliente.encontrarCliente(getVista().getRut(), getModelo())){
+                    throw new IllegalArgumentException("El usuario que intenga ingresar ya existe");
+                }
+                /**
+                 * Toca crear un nuevo cliente.
+                 * Se obtienen los datos de la vista.
+                 */
+                Cliente nuevoCliente = new Cliente(getVista().getRut(), getVista().getNombre(), true);
+                //Se agrega al ArrayList<Cliente> del modelo
+                getModelo().add(nuevoCliente);
+
+                /**
+                 * De la vista, al objeto listarClientes, se le agrega el ArrayList en este caso es Modelo.
+                 * En el fondo lo que se hace acá, es colocar el listado de clientes por decirlo así, en el JScrollpane
+                 */
+                getVista().listarClientes(getModelo());
+
+                //Luego de ingresar el nuevo cliente, se ha de limpiar el formulario.
+                getVista().vaciarCampos();
+                //Se despliega mensaje al usuario de que el cliente fue agregado.
+                getVista().mostrarMensaje("¡Cliente agregado!");
+
+                //Comenté esto para desplegar mensaje de que se agregó, por si desea agregar otro.
+                //Porque si quiere salir de esta ventana, ya tiene el botón volver.
+                //Se elimina el panel
+                //contenido.remove(getVista().getPanel());
+                //Se vuelve a mostrar el panel anterior
+                //contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
             }catch(Exception ex){
                 //Se despliega el mensaje de error al usuario
                 getVista().mostrarMensaje("Se produjo el siguiente error: " + ex.getMessage());
