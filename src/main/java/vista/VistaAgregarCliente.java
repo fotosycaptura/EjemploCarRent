@@ -7,6 +7,7 @@ package vista;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Cliente;
 
@@ -44,6 +45,11 @@ public class VistaAgregarCliente extends javax.swing.JPanel implements InterfazA
         volver.setText("Volver");
 
         agregar.setText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarActionPerformed(evt);
+            }
+        });
 
         rut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +118,10 @@ public class VistaAgregarCliente extends javax.swing.JPanel implements InterfazA
         // TODO add your handling code here:
     }//GEN-LAST:event_rutActionPerformed
 
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agregarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
@@ -152,6 +162,11 @@ public class VistaAgregarCliente extends javax.swing.JPanel implements InterfazA
     public void vaciarCampos() {
         this.nombre.setText("");
         this.rut.setText("");
+    }
+    
+    @Override
+    public void mostrarMensaje(String msj){
+        JOptionPane.showMessageDialog(this, msj, "Agregar Cliente", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override

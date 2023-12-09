@@ -6,6 +6,7 @@ package vista;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Cliente;
 
@@ -67,7 +68,10 @@ public class VistaAgregarCliente2 extends javax.swing.JPanel implements Interfaz
     public void vaciarCampos() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    @Override
+    public void mostrarMensaje(String msj){
+        JOptionPane.showMessageDialog(this, msj, "Agregar Cliente", JOptionPane.OK_OPTION);
+    }
     @Override
     public void listarClientes(ArrayList<Cliente> clientes) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
