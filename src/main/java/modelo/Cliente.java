@@ -68,7 +68,11 @@ public class Cliente {
      * @param nombre the nombre to set
      */
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (nombre != null && nombre.length() > 0){
+            this.nombre = nombre;
+        }else{
+            throw new IllegalArgumentException("Nombre inválido. Por favor ingrese un nombre!");
+        }
     }
 
     /**
