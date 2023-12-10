@@ -140,5 +140,23 @@ public class Cliente {
         return false;
     }
 
+    public static boolean eliminarCliente(String cedula, ArrayList<Cliente> clientes){
+        
+        if (!(cedula != null && cedula.length() == 10)){
+            throw new IllegalArgumentException("Debe ingresar una cedula válida");
+        }
+        
+        if (clientes == null){
+            throw new IllegalArgumentException("No hay elementos para eliminar");
+        }
+        
+        //Se realiza ciclo para buscar y eliminar al cliente en cuestión.
+        
+        for (int i=0; i < clientes.size(); i++){
+            
+        }
+        
+        return true;
+    }
 
 }
