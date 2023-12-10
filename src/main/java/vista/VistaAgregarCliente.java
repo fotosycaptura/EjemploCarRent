@@ -51,6 +51,7 @@ public class VistaAgregarCliente extends javax.swing.JPanel implements InterfazA
             }
         });
 
+        rut.setToolTipText("Ingrese rut en formato 11111111-1");
         rut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rutActionPerformed(evt);
