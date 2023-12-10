@@ -12,6 +12,8 @@ import modelo.Cliente;
 import vista.InterfazClientes;
 import vista.VistaAgregarCliente;
 import vista.VistaClientes;
+import vista.VistaClientesListar;
+import vista.VistaClientesListarEliminar;
 
 /**
  *
@@ -31,8 +33,21 @@ public class ControladorClientes implements ActionListener {
         String command = e.getActionCommand();
         
         if (command.equals(getVista().ELIMINAR)) {
+            ControladorClientesListarEliminar controlador = new ControladorClientesListarEliminar(
+                    new VistaClientesListarEliminar(),
+                    getModelo()
+            );
+            getVista().getPanel().setVisible(false);
+            contenido.add(controlador.getVista().getPanel());
             System.out.println("HAGO CLICK AL ELIMINAR");
         } else if (command.equals(getVista().LISTAR)) {
+            ControladorClientesListar controlador = new ControladorClientesListar(
+                    new VistaClientesListar(),
+                    getModelo()
+                    );
+            
+            getVista().getPanel().setVisible(false);
+            contenido.add(controlador.getVista().getPanel());
             System.out.println("HAGO CLICK AL LISTAR");
         } else if (command.equals(getVista().VOLVER)) {
             contenido.remove(getVista().getPanel());

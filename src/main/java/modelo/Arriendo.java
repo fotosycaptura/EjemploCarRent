@@ -36,6 +36,9 @@ public class Arriendo {
      * @param numArriendo the numArriendo to set
      */
     public void setNumArriendo(int numArriendo) {
+        if (numArriendo <= 0){
+            throw new IllegalArgumentException("Número de arriendo inválido.");
+        }
         this.numArriendo = numArriendo;
     }
 

@@ -81,10 +81,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="nombre">
     </Component>
     <Component class="javax.swing.JTextField" name="rut">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese rut en formato 11111111-1"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rutActionPerformed"/>
       </Events>
