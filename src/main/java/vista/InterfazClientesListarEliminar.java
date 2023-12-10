@@ -17,5 +17,6 @@ public interface InterfazClientesListarEliminar {
     public JPanel getPanel();
     public void registrarEscuchador(ActionListener escuchador);
     public void listarClientes(ArrayList<Cliente> clientes);
-    public void mostrarMensaje(String msj);
+    public int mostrarMensaje(int tipoMensaje, String msj);
+    public String getListaClientes();
 }
