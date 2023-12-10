@@ -68,14 +68,20 @@ public class ControladorClientesListarEliminar implements ActionListener{
         else if (command.equals(getVista().ELIMINAR)){
             //Se debe de verificar que haya un elemento seleccionado antes de proceder.
             String strSeleccion = getVista().getListaClientes();
-            int inAccion = getVista().mostrarMensaje(2, "¿Está seguro que desea eliminar al cliente?");
-            switch (inAccion){
-                case 2: 
-                    break;
-                default:
-                    getVista().mostrarMensaje(1, "No se ha realizado ninguna acción.");
-                    break;
-            }
+            if (strSeleccion == null){
+                getVista().mostrarMensaje(1, "Debe de seleccionar un cliente del listado antes de proceder a su eliminación.");
+            }else{
+                int inAccion = getVista().mostrarMensaje(2, "¿Está seguro que desea eliminar al cliente?\n" + strSeleccion);
+                switch (inAccion){
+                    case 0:
+                        //Realizar proceso de eliminación
+                        getVista().mostrarMensaje(1, "Se elimina con éxito.");
+                        break;
+                    default:
+                        getVista().mostrarMensaje(1, "No se ha realizado ninguna acción.");
+                        break;
+                }//switch
+            }//if
         }
         else {
             throw new UnsupportedOperationException("Acción no implementada.");
