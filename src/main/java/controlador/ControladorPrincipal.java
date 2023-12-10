@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import vista.InterfazPrincipal;
+import Utiles.Archivos;
 
 /**
  *
@@ -50,6 +51,10 @@ public class ControladorPrincipal implements ActionListener {
             System.out.println("HAGO CLICK AL ARRIENDO");
         } else if (command.equals(getVista().CLIENTES)) {
             getVista().getPanel().setVisible(false);
+            
+            //Se cargan datos de clientes
+            getControladorClientes().setModelo(Archivos.LeerArchivoClientes()); 
+            
             contenido.add(getControladorClientes().getVista().getPanel());
         } else if (command.equals(getVista().VEHICULOS)) {
             System.out.println("HAGO CLICK AL VEHICULOS");
