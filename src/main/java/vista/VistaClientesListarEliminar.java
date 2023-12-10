@@ -112,6 +112,7 @@ public class VistaClientesListarEliminar extends javax.swing.JPanel implements I
     public void registrarEscuchador(ActionListener escuchador){
         this.Volver.addActionListener(escuchador);
         this.Volver.setActionCommand(VOLVER);
+        this.Eliminar.addActionListener(escuchador);
         this.Eliminar.setActionCommand(ELIMINAR);
     }    
     /**
