@@ -64,6 +64,13 @@ public class ControladorClientesListar implements ActionListener {
             //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
         }
+        else if (command.equals(getVista().CHGESTADO)){
+            //Se debe de verificar que haya un elemento seleccionado antes de proceder.
+            String strSeleccion = getVista().getListaClientes();
+            if (strSeleccion == null){
+                getVista().mostrarMensaje(1, "Debe de seleccionar un cliente del listado antes de proceder a su cambio de estado.");
+            }
+        }
         else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }
