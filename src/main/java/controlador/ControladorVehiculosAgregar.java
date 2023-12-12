@@ -20,6 +20,8 @@ public class ControladorVehiculosAgregar implements ActionListener{
     public ControladorVehiculosAgregar(InterfazVehiculoAgregar vista, ArrayList<Vehiculo> modelo) {
         setVista(vista);
         setModelo(modelo);
+        getVista().registrarEscuchador(this);
+        getVista().listarVehiculos(getModelo());
     }
 
     /**
@@ -52,6 +54,7 @@ public class ControladorVehiculosAgregar implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e){
+        System.out.println("Intentando Volver");
         Container contenido = getVista().getPanel().getParent();
         String command = e.getActionCommand();
         //Verifica las acciones
