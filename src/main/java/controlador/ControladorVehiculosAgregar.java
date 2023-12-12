@@ -69,22 +69,22 @@ public class ControladorVehiculosAgregar implements ActionListener{
                     throw new IllegalArgumentException("El vehículo que intenta ingresar ya existe");
                 }
                 /**
-                 * Toca crear un nuevo cliente.
+                 * Toca crear un nuevo Vehículo.
                  * Se obtienen los datos de la vista.
                  */
                 Vehiculo nuevoVehiculo= new Vehiculo(getVista().getPatente(), getVista().getMarca(), getVista().getModelo(), Integer.parseInt(getVista().getAnio()));
-                //Se agrega al ArrayList<Cliente> del modelo
+                //Se agrega al ArrayList<Vehiculo> del modelo
                 getModelo().add(nuevoVehiculo);
 
                 /**
-                 * De la vista, al objeto listarClientes, se le agrega el ArrayList en este caso es Modelo.
-                 * En el fondo lo que se hace acá, es colocar el listado de clientes por decirlo así, en el JScrollpane
+                 * De la vista, al objeto listarVehiculos, se le agrega el ArrayList en este caso es Modelo.
+                 * En el fondo lo que se hace acá, es colocar el listado de vehículos por decirlo así, en el JScrollpane
                  */
                 getVista().listarVehiculos(getModelo());
 
-                //Luego de ingresar el nuevo cliente, se ha de limpiar el formulario.
+                //Luego de ingresar el nuevo vehículo, se ha de limpiar el formulario.
                 getVista().vaciarCampos();
-                //Se despliega mensaje al usuario de que el cliente fue agregado.
+                //Se despliega mensaje al usuario de que el vehículo fue agregado.
                 getVista().mostrarMensaje(1, "¡Vehículo agregado!");
 
                 //Comenté esto para desplegar mensaje de que se agregó, por si desea agregar otro.
@@ -94,9 +94,10 @@ public class ControladorVehiculosAgregar implements ActionListener{
                 //Se vuelve a mostrar el panel anterior
                 //contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
             }catch(NumberFormatException ex){
-                //Se despliega el mensaje de error al usuario
+                //Se despliega el mensaje de error al usuario si el año no se ingresa nada o si es un string en vez de un número
                 getVista().mostrarMensaje(3, "Se produjo el siguiente error: debe ingresar un número para el año");
             }catch(Exception ex){
+                //Para cualquier otro tipo de error
                 getVista().mostrarMensaje(3, "Se produjo el siguiente error: " + ex.getMessage());
             }
         }else {
