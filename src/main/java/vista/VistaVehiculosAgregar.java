@@ -3,12 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package vista;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import modelo.Vehiculo;
 
 /**
  *
  * @author xavier.fuentes
  */
-public class VistaVehiculosAgregar extends javax.swing.JPanel {
+public class VistaVehiculosAgregar extends javax.swing.JPanel implements InterfazVehiculoAgregar{
 
     /**
      * Creates new form VistaVehiculosAgregar
@@ -162,4 +168,76 @@ public class VistaVehiculosAgregar extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaVehiculos;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public JPanel getPanel() {
+        return this;
+    }
+    
+    @Override
+    public void registrarEscuchador(ActionListener escuchador) {
+        this.btnAgregar.addActionListener(escuchador);
+        this.btnAgregar.setActionCommand(AGREGAR);
+        
+        this.btnVolver.addActionListener(escuchador);
+        this.btnVolver.setActionCommand(VOLVER);
+    }
+    
+    @Override
+    public void vaciarCampos(){
+        this.Patente.setText("");
+        this.Marca.setText("");
+        this.Modelo.setText("");
+        this.Anio.setText("");
+    }
+    
+    @Override
+    public String getPatente(){
+        return this.Patente.getText();
+    }
+    
+    @Override
+    public String getModelo(){
+        return this.Modelo.getText();
+    }
+    
+    @Override
+    public String getMarca(){
+        return this.Marca.getText();
+    }
+    
+    @Override
+    public String getAnio(){
+        return this.Anio.getText();
+    }
+    
+    @Override
+    public int mostrarMensaje(int tipoMensaje, String msj){
+        String strTitulo = "Eliminar Cliente";
+        int retorno = 0;
+        switch (tipoMensaje){
+            case 1: //Solo informativo
+                JOptionPane.showMessageDialog(this, msj, strTitulo, JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case 2: //Si se desea eliminar
+                retorno = JOptionPane.showConfirmDialog(this, msj, strTitulo, JOptionPane.OK_CANCEL_OPTION);
+                break;
+            case 3: //Si hay un error
+                JOptionPane.showMessageDialog(this, msj, strTitulo, JOptionPane.ERROR_MESSAGE);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Acción no implementada", strTitulo, JOptionPane.INFORMATION_MESSAGE);
+        }
+        return retorno;
+    }
+    
+    @Override
+    public void listarVehiculos(ArrayList<Vehiculo> vehiculos){
+        DefaultListModel<String> model = new DefaultListModel();
+        this.listaVehiculos.setModel(model);
+        for(int i = 0; i < vehiculos.size(); i++) {
+            Vehiculo vehiculo = vehiculos.get(i);
+            model.addElement(vehiculo.getPatente() + " - " + vehiculo.getMarca() + " - " + vehiculo.getModelo() + " Año: " + vehiculo.getAnho());
+        }//for
+    }
 }

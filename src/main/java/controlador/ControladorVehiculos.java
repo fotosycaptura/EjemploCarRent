@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import modelo.Vehiculo;
 import vista.InterfazVehiculo;
 import vista.VistaVehiculos;
+import vista.VistaVehiculosAgregar;
 
 /**
  *
@@ -30,8 +31,16 @@ public class ControladorVehiculos implements ActionListener {
         
         if (command.equals(getVista().LISTAR)){
             System.out.println("Se ha clickeado en Listar");
-        }
-        else if (command.equals(getVista().AGREGAR)){
+        } else if (command.equals(getVista().AGREGAR)){
+            
+            ControladorVehiculosAgregar controlador = new ControladorVehiculosAgregar(
+                    new VistaVehiculosAgregar(), 
+                    getModelo()
+            );
+            
+            getVista().getPanel().setVisible(false);
+            contenido.add(controlador.getVista().getPanel());
+            
             System.out.println("Se ha clickeado en Agregar");
         }
         else if (command.equals(getVista().VOLVER)) {

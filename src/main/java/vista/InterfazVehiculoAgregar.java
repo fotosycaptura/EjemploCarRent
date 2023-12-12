@@ -17,9 +17,11 @@ public interface InterfazVehiculoAgregar {
     
     public JPanel getPanel();
     public void registrarEscuchador(ActionListener escuchador);
-    public String getNombre();
-    public String getRut();
+    public String getPatente();
+    public String getModelo();
+    public String getMarca();
+    public String getAnio();
     public void vaciarCampos();
     public int mostrarMensaje(int tipoMensaje, String msj);
-    public void listarClientes(ArrayList<Vehiculo> vehiculos);
+    public void listarVehiculos(ArrayList<Vehiculo> vehiculos);
 }
