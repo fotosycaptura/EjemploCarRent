@@ -62,7 +62,7 @@ public class ControladorPrincipal implements ActionListener {
             getVista().getPanel().setVisible(false);
             
             //Se cargan datos de vehículos
-            //getControladorVehiculos().setModelo(Archivos.LeerArchivoClientes()); 
+            getControladorVehiculos().setModelo(Archivos.LeerArchivoVehiculos()); 
             
             contenido.add(getControladorVehiculos().getVista().getPanel());
         } else if (command.equals(getVista().SALIR)) {
