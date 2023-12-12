@@ -10,7 +10,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Vehiculo;
-
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
 /**
  *
  * @author xavier.fuentes
@@ -22,6 +24,17 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
      */
     public VistaVehiculosListar() {
         initComponents();
+        //listaVehiculos.setRowSelectionAllowed(true);
+        
+        //listaVehiculos.setCellSelectionEnabled(false);
+        
+        for (int i = 0; i < listaVehiculos.getRowCount(); i++) {
+            listaVehiculos.changeSelection(i, 1, false, false);
+        }
+        listaVehiculos.setColumnSelectionAllowed(false);
+        listaVehiculos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //Se activa la JTable en modo solo lectura.
+        //listaVehiculos.setEnabled(false);
     }
 
     /**
@@ -35,17 +48,23 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaVehiculos = new javax.swing.JList<>();
+        listaVehiculos = new javax.swing.JTable();
         btnVolver = new javax.swing.JButton();
 
         jLabel1.setText("Lista de Vehículos");
 
-        listaVehiculos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        listaVehiculos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        listaVehiculos.setToolTipText("");
         jScrollPane1.setViewportView(listaVehiculos);
 
         btnVolver.setText("Volver");
@@ -57,10 +76,13 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnVolver))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(btnVolver))
+                        .addGap(0, 282, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,7 +102,7 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> listaVehiculos;
+    private javax.swing.JTable listaVehiculos;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -116,11 +138,22 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     
     @Override
     public void listarVehiculos(ArrayList<Vehiculo> vehiculos){
-        DefaultListModel<String> model = new DefaultListModel();
+        //Se establecen las cabeceras de la tabla
+        Object[] header = new Object[]{"Patente", "Marca", "Modelo", "Año", "Condición", "Precio Arriendo"};
+        //Se establece un model para la tabla, para evitar la edición por celda.
+        DefaultTableModel model = new DefaultTableModel(header, 0){
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false; //To change body of generated methods, choose Tools | Templates.
+            }
+        };
         this.listaVehiculos.setModel(model);
+
+        //Se llena la JTable con los datos de los vehículos
         for(int i = 0; i < vehiculos.size(); i++) {
             Vehiculo vehiculo = vehiculos.get(i);
-            model.addElement("Patente: " + vehiculo.getPatente() + " - Marca: " + vehiculo.getMarca() + " - Modelo: " + vehiculo.getModelo() + " Año: " + vehiculo.getAnho() + " - Condición: " + vehiculo.getCondicion());
+            model.addRow(new Object[] {vehiculo.getPatente(), vehiculo.getMarca(), vehiculo.getModelo(), vehiculo.getAnho(), vehiculo.getCondicion(), vehiculo.getPrecioArriendo()});
         }//for
+        this.listaVehiculos.setModel(model);
     }
 }
