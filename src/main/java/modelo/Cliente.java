@@ -139,8 +139,15 @@ public class Cliente {
         }
         return false;
     }
-
-    public static boolean eliminarCliente(String cedula, ArrayList<Cliente> clientes){
+    /**
+     * Se encarga de eliminar a un cliente del ArrayList
+     * En caso exitoso, retorna true
+     * Si no, retornará false.
+     * @param cedula
+     * @param clientes
+     * @return 
+     */
+    public static ArrayList<Cliente> eliminarCliente(String cedula, ArrayList<Cliente> clientes){
         
         if (!(cedula != null && cedula.length() == 10)){
             throw new IllegalArgumentException("Debe ingresar una cedula válida");
@@ -151,12 +158,21 @@ public class Cliente {
         }
         
         //Se realiza ciclo para buscar y eliminar al cliente en cuestión.
-        
+        int inClienteEncontrado = -1;
         for (int i=0; i < clientes.size(); i++){
-            
-        }
+            if (clientes.get(i).getCedula().equals(cedula)){
+                inClienteEncontrado = i;
+                break;
+            }//if
+        }//for
         
-        return true;
+        if (inClienteEncontrado < 0){
+            throw new IllegalArgumentException("No se encontró cliente a eliminar");
+        }//if
+        
+        clientes.remove(inClienteEncontrado);
+        return clientes;
+        
     }
 
 }

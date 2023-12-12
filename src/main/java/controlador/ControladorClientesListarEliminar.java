@@ -74,8 +74,21 @@ public class ControladorClientesListarEliminar implements ActionListener{
                 int inAccion = getVista().mostrarMensaje(2, "¿Está seguro que desea eliminar al cliente?\n" + strSeleccion);
                 switch (inAccion){
                     case 0:
-                        //Realizar proceso de eliminación
-                        getVista().mostrarMensaje(1, "Se elimina con éxito.");
+                        try{
+                            //Se extrae la cedula
+                            String cedula = strSeleccion.substring(0, 10);
+                            //Realizar proceso de eliminación
+                            setModelo(Cliente.eliminarCliente(cedula, getModelo()));
+
+                            //Se refresca el listado de clientes en la vista
+                            getVista().listarClientes(getModelo());
+
+                            //Se informa de la operación
+                            getVista().mostrarMensaje(1, "Se elimina con éxito.");
+                        }catch (Exception ex){
+                            getVista().mostrarMensaje(3, "Hubo un problema al realizar la operación.\n" + ex.getMessage());
+                        }//trycatch
+                        
                         break;
                     default:
                         getVista().mostrarMensaje(1, "No se ha realizado ninguna acción.");

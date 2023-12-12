@@ -147,6 +147,9 @@ public class VistaClientesListarEliminar extends javax.swing.JPanel implements I
             case 2: //Si se desea eliminar
                 retorno = JOptionPane.showConfirmDialog(this, msj, strTitulo, JOptionPane.OK_CANCEL_OPTION);
                 break;
+            case 3: //Si hay un error
+                JOptionPane.showMessageDialog(this, msj, strTitulo, JOptionPane.ERROR_MESSAGE);
+                break;
             default:
                 JOptionPane.showMessageDialog(this, "Acción no implementada", strTitulo, JOptionPane.INFORMATION_MESSAGE);
         }
