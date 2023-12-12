@@ -13,6 +13,8 @@ import modelo.Vehiculo;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /**
  *
  * @author xavier.fuentes
@@ -24,17 +26,10 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
      */
     public VistaVehiculosListar() {
         initComponents();
-        //listaVehiculos.setRowSelectionAllowed(true);
-        
-        //listaVehiculos.setCellSelectionEnabled(false);
-        
-        for (int i = 0; i < listaVehiculos.getRowCount(); i++) {
-            listaVehiculos.changeSelection(i, 1, false, false);
-        }
-        listaVehiculos.setColumnSelectionAllowed(false);
-        listaVehiculos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //Se activa la JTable en modo solo lectura.
-        //listaVehiculos.setEnabled(false);
+        //Inicializa combobox de estados de vehículo
+        llenarDDLEstado();
+        //Inicializa la tabla de visualización de vehículo
+        inicializallenarTabla();
     }
 
     /**
@@ -50,6 +45,11 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
         jScrollPane1 = new javax.swing.JScrollPane();
         listaVehiculos = new javax.swing.JTable();
         btnVolver = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtPatente = new javax.swing.JTextField();
+        btnCambiar = new javax.swing.JButton();
+        ddlEstado = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setText("Lista de Vehículos");
 
@@ -69,6 +69,17 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
 
         btnVolver.setText("Volver");
 
+        jLabel2.setText("Vehículo seleccionado:");
+
+        txtPatente.setEditable(false);
+        txtPatente.setColumns(8);
+
+        btnCambiar.setText("Cambiar");
+
+        ddlEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel3.setText("Cambiar estado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,13 +87,27 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(btnVolver))
-                        .addGap(0, 282, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3)
+                                    .addComponent(btnVolver))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ddlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCambiar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,8 +115,18 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ddlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCambiar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnVolver)
                 .addContainerGap())
         );
@@ -99,10 +134,15 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCambiar;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> ddlEstado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable listaVehiculos;
+    private javax.swing.JTextField txtPatente;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -136,6 +176,10 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
         return retorno;
     }
     
+    /**
+     * Llena con datos la JTable
+     * @param vehiculos 
+     */
     @Override
     public void listarVehiculos(ArrayList<Vehiculo> vehiculos){
         //Se establecen las cabeceras de la tabla
@@ -155,5 +199,52 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
             model.addRow(new Object[] {vehiculo.getPatente(), vehiculo.getMarca(), vehiculo.getModelo(), vehiculo.getAnho(), vehiculo.getCondicion(), vehiculo.getPrecioArriendo()});
         }//for
         this.listaVehiculos.setModel(model);
+    }
+    
+    /**
+     * Inicializa la tabla con las propiedades de solo lectura, solo 1 edición
+     */
+    private void inicializallenarTabla(){
+        for (int i = 0; i < listaVehiculos.getRowCount(); i++) {
+            listaVehiculos.changeSelection(i, 1, false, false);
+        }
+        listaVehiculos.setColumnSelectionAllowed(false);
+        listaVehiculos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        ListSelectionModel selectionModel = listaVehiculos.getSelectionModel();
+
+        selectionModel.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                escuchadorTabla(e);
+            }
+        });
+    }
+    
+    private void escuchadorTabla(ListSelectionEvent e){
+        if (e.getValueIsAdjusting())
+                return;
+        if (listaVehiculos.getSelectedRow() > -1){
+            String pateneSeleccionada = listaVehiculos.getModel().getValueAt(listaVehiculos.getSelectedRow(), 0).toString();
+            this.txtPatente.setText(pateneSeleccionada);
+        }
+        
+        //System.out.println(listaVehiculos.getSelectedRow());
+    }
+    
+    public String getPatente(){
+        return this.txtPatente.getText();
+    }
+    
+    /**
+     * Llena con los estados el combobox
+     */
+    private void llenarDDLEstado(){
+        //Se borran todos los elementos del ddl
+        this.ddlEstado.removeAllItems();
+        //Se agregan items personalizados
+        this.ddlEstado.addItem("Seleccione");
+        this.ddlEstado.addItem("D");
+        this.ddlEstado.addItem("A");
+        this.ddlEstado.addItem("M");
     }
 }
