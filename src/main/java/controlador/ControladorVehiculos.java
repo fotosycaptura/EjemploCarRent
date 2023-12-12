@@ -11,7 +11,7 @@ import modelo.Vehiculo;
 import vista.InterfazVehiculo;
 import vista.VistaVehiculos;
 import vista.VistaVehiculosAgregar;
-
+import vista.VistaVehiculosListar;
 /**
  *
  * @author xavie
@@ -30,6 +30,13 @@ public class ControladorVehiculos implements ActionListener {
         String command = e.getActionCommand();
         
         if (command.equals(getVista().LISTAR)){
+            ControladorVehiculosListar controlador = new ControladorVehiculosListar(
+                    new VistaVehiculosListar(), 
+                    getModelo()
+            );
+            
+            getVista().getPanel().setVisible(false);
+            contenido.add(controlador.getVista().getPanel());
             System.out.println("Se ha clickeado en Listar");
         } else if (command.equals(getVista().AGREGAR)){
             

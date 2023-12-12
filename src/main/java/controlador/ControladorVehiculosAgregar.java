@@ -54,7 +54,6 @@ public class ControladorVehiculosAgregar implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e){
-        System.out.println("Intentando Volver");
         Container contenido = getVista().getPanel().getParent();
         String command = e.getActionCommand();
         //Verifica las acciones
