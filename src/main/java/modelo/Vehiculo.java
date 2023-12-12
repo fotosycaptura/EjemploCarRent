@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
@@ -187,5 +189,14 @@ public class Vehiculo {
                 "MODELO: " + getModelo() + "\t" +
                 "MARCA: " + getMarca() + "\t" +
                 "CONDICION: " + getCondicion();
+    }
+    
+    public static Boolean encontrarVehiculo(String patente, ArrayList<Vehiculo> vehiculos){
+        for (Vehiculo vehiculo: vehiculos){
+            if (vehiculo.getPatente().equals(patente)){
+                return true;
+            }
+        }
+        return false;
     }
 }
