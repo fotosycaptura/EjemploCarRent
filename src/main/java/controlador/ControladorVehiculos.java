@@ -29,10 +29,10 @@ public class ControladorVehiculos implements ActionListener {
         String command = e.getActionCommand();
         
         if (command.equals(getVista().LISTAR)){
-            System.out.println("HAGO CLICK AL LISTAR");
+            System.out.println("Se ha clickeado en Listar");
         }
         else if (command.equals(getVista().AGREGAR)){
-            System.out.println("HAGO CLICK AL Agregar");
+            System.out.println("Se ha clickeado en Agregar");
         }
         else if (command.equals(getVista().VOLVER)) {
             contenido.remove(getVista().getPanel());
