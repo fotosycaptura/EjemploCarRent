@@ -108,7 +108,7 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
         for(int i = 0; i < clientes.size(); i++) {
             Cliente cliente = clientes.get(i);
             
-            model.addElement(cliente.getCedula() + " - " + cliente.getNombre());
+            model.addElement(cliente.getCedula() + " - " + cliente.getNombre() + " - Vigente: " + (cliente.isVigente() ? "Sí": "No"));
         }
     }
 }
