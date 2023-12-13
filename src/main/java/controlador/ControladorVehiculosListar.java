@@ -16,14 +16,25 @@ import vista.InterfazVehiculoListar;
 public class ControladorVehiculosListar implements ActionListener {
     private InterfazVehiculoListar vista;
     private ArrayList<Vehiculo> modelo;
+    private ArrayList<String> condicion;
 
     public ControladorVehiculosListar(InterfazVehiculoListar vista, ArrayList<Vehiculo> modelo) {
         setVista(vista);
         setModelo(modelo);
         getVista().registrarEscuchador(this);
         getVista().listarVehiculos(getModelo());
+        getVista().ddlCondiciones(getCondicion());
     }
 
+    public ArrayList<String> getCondicion(){
+        ArrayList<String> condiciones = new ArrayList<String>();
+        condiciones.add("-Seleccione-");
+        condiciones.add("D");
+        condiciones.add("A");
+        condiciones.add("M");
+        return condiciones;
+    }
+    
     /**
      * @return the vista
      */

@@ -18,4 +18,5 @@ public interface InterfazVehiculoListar {
     public void registrarEscuchador(ActionListener escuchador);
     public int mostrarMensaje(int tipoMensaje, String msj);
     public void listarVehiculos(ArrayList<Vehiculo> vehiculos);
+    public void ddlCondiciones(ArrayList<String> condiciones);
 }

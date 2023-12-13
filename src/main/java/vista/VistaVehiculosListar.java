@@ -6,6 +6,7 @@ package vista;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,8 +27,6 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
      */
     public VistaVehiculosListar() {
         initComponents();
-        //Inicializa combobox de estados de vehículo
-        llenarDDLEstado();
         //Inicializa la tabla de visualización de vehículo
         inicializallenarTabla();
     }
@@ -213,23 +212,25 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
         
         ListSelectionModel selectionModel = listaVehiculos.getSelectionModel();
 
-        selectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                escuchadorTabla(e);
-            }
-        });
+//        selectionModel.addListSelectionListener(new ListSelectionListener() {
+//            public void valueChanged(ListSelectionEvent e) {
+//                escuchadorTabla(e);
+//            }
+//        });
     }
     
-    private void escuchadorTabla(ListSelectionEvent e){
-        if (e.getValueIsAdjusting())
-                return;
-        if (listaVehiculos.getSelectedRow() > -1){
-            String pateneSeleccionada = listaVehiculos.getModel().getValueAt(listaVehiculos.getSelectedRow(), 0).toString();
-            this.txtPatente.setText(pateneSeleccionada);
-        }
-        
-        //System.out.println(listaVehiculos.getSelectedRow());
-    }
+//    private void escuchadorTabla(ListSelectionEvent e){
+//        if (e.getValueIsAdjusting())
+//                return;
+//        if (listaVehiculos.getSelectedRow() > -1){
+//            String patenteSeleccionada = listaVehiculos.getModel().getValueAt(listaVehiculos.getSelectedRow(), 0).toString();
+//            this.txtPatente.setText(patenteSeleccionada);
+//            //Habría que pre seleccionar el tipo de estado que tiene asignado
+//            Vehiculo vehiculo = Vehiculo.buscarVehiculo(patenteSeleccionada, getVista().getModelo());
+//        }
+//        
+//        //System.out.println(listaVehiculos.getSelectedRow());
+//    }
     
     public String getPatente(){
         return this.txtPatente.getText();
@@ -238,13 +239,17 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     /**
      * Llena con los estados el combobox
      */
-    private void llenarDDLEstado(){
-        //Se borran todos los elementos del ddl
-        this.ddlEstado.removeAllItems();
-        //Se agregan items personalizados
-        this.ddlEstado.addItem("Seleccione");
-        this.ddlEstado.addItem("D");
-        this.ddlEstado.addItem("A");
-        this.ddlEstado.addItem("M");
+    @Override
+    public void ddlCondiciones(ArrayList<String> condiciones){
+        //DefaultListModel<String> model = new DefaultListModel();
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
+        this.ddlEstado.setModel(model);
+        
+        for(int i = 0; i < condiciones.size(); i++) {
+            String condicion = condiciones.get(i);
+            
+            model.addElement(condicion);
+        }
+        
     }
 }

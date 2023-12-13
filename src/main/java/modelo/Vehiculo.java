@@ -199,4 +199,13 @@ public class Vehiculo {
         }
         return false;
     }
+    
+    public static Vehiculo buscarVehiculo(String patente, ArrayList<Vehiculo> vehiculos){
+        for (Vehiculo vehiculo: vehiculos){
+            if (vehiculo.getPatente().equals(patente)){
+                return vehiculo;
+            }
+        }
+        return null;
+    }
 }
