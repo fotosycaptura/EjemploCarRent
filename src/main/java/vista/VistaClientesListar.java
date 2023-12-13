@@ -7,6 +7,7 @@ package vista;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Cliente;
 
@@ -36,6 +37,7 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
         listaClientes = new javax.swing.JList<>();
         Volver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnVigente = new javax.swing.JButton();
 
         listaClientes.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -49,14 +51,12 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
 
         jLabel1.setText("Listado de clientes");
 
+        btnVigente.setText("Cambiar Vigente/No Vigente");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Volver)
-                .addGap(161, 161, 161))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -64,8 +64,13 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Volver)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnVigente))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,7 +80,9 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(Volver)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Volver)
+                    .addComponent(btnVigente))
                 .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -83,6 +90,7 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Volver;
+    private javax.swing.JButton btnVigente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaClientes;
@@ -97,6 +105,8 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
     public void registrarEscuchador(ActionListener escuchador){
         this.Volver.addActionListener(escuchador);
         this.Volver.setActionCommand(VOLVER);
+        this.btnVigente.addActionListener(escuchador);
+        this.btnVigente.setActionCommand(CHGESTADO);
     }
     
     @Override
@@ -108,7 +118,32 @@ public class VistaClientesListar extends javax.swing.JPanel implements InterfazC
         for(int i = 0; i < clientes.size(); i++) {
             Cliente cliente = clientes.get(i);
             
-            model.addElement(cliente.getCedula() + " - " + cliente.getNombre());
+            model.addElement(cliente.getCedula() + " - " + cliente.getNombre() + " - Vigente: " + (cliente.isVigente() ? "Sí": "No"));
         }
+    }
+    
+    @Override
+    public int mostrarMensaje(int tipoMensaje, String msj){
+        String strTitulo = "Eliminar Cliente";
+        int retorno = 0;
+        switch (tipoMensaje){
+            case 1: //Solo informativo
+                JOptionPane.showMessageDialog(this, msj, strTitulo, JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case 2: //Si se desea eliminar
+                retorno = JOptionPane.showConfirmDialog(this, msj, strTitulo, JOptionPane.OK_CANCEL_OPTION);
+                break;
+            case 3: //Si hay un error
+                JOptionPane.showMessageDialog(this, msj, strTitulo, JOptionPane.ERROR_MESSAGE);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Acción no implementada", strTitulo, JOptionPane.INFORMATION_MESSAGE);
+        }
+        return retorno;
+    }
+    
+    @Override
+    public String getListaClientes(){
+        return this.listaClientes.getSelectedValue();
     }
 }

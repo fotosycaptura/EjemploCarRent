@@ -139,6 +139,7 @@ public class Cliente {
         }
         return false;
     }
+    
     /**
      * Se encarga de eliminar a un cliente del ArrayList
      * En caso exitoso, retorna true
@@ -172,7 +173,34 @@ public class Cliente {
         
         clientes.remove(inClienteEncontrado);
         return clientes;
+    }
+    
+    public static ArrayList<Cliente> ActivarDesactivarCliente(String cedula, ArrayList<Cliente> clientes){
         
+        if (!(cedula != null && cedula.length() == 10)){
+            throw new IllegalArgumentException("Debe ingresar una cedula válida");
+        }
+        
+        if (clientes == null){
+            throw new IllegalArgumentException("No hay elementos para proceder");
+        }
+        
+        //Se realiza ciclo para buscar y eliminar al cliente en cuestión.
+        int inClienteEncontrado = -1;
+        for (int i=0; i < clientes.size(); i++){
+            if (clientes.get(i).getCedula().equals(cedula)){
+                inClienteEncontrado = i;
+                //Se activa o desactiva el cliente
+                clientes.get(i).setVigente(!clientes.get(i).isVigente());
+                break;
+            }//if
+        }//for
+        
+        if (inClienteEncontrado < 0){
+            throw new IllegalArgumentException("No se encontró cliente a eliminar");
+        }//if
+        
+        return clientes;
     }
 
 }
