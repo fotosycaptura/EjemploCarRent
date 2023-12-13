@@ -208,4 +208,31 @@ public class Vehiculo {
         }
         return null;
     }
+    
+    public static ArrayList<Vehiculo> cambiarEstadoVehiculo(String patente, ArrayList<Vehiculo> vehiculos){
+        if (!(patente != null && patente.length() == 8)){
+            throw new IllegalArgumentException("Debe ingresar una patente válida, de largo 8");
+        }
+        
+        if (patente == null){
+            throw new IllegalArgumentException("Debe ingresar una patente antes de proceder");
+        }
+        
+        int inVehiculoEncontrado = -1;
+        for (int i=0; i < vehiculos.size(); i++){
+            if (vehiculos.get(i).getPatente().equals(patente)){
+                inVehiculoEncontrado = i;
+                break;
+            }//if
+        }//for
+        
+        if (inVehiculoEncontrado < 0){
+            throw new IllegalArgumentException("No se encontró vehículo para el cambio estado");
+        }//if
+        
+        //Se asigna vehículo a mantención
+        vehiculos.get(inVehiculoEncontrado).AsignarVehiculoEnMantencion();
+            
+        return vehiculos;
+    }
 }

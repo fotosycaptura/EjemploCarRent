@@ -45,8 +45,6 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
         jLabel2 = new javax.swing.JLabel();
         txtPatente = new javax.swing.JTextField();
         btnCambiar = new javax.swing.JButton();
-        ddlEstado = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setText("Lista de Vehículos");
 
@@ -66,15 +64,11 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
 
         btnVolver.setText("Volver");
 
-        jLabel2.setText("Seleccionar vehículo por patente:");
+        jLabel2.setText("Confirme enviar a mantención escribiendo la patente del vehículo");
 
         txtPatente.setColumns(8);
 
-        btnCambiar.setText("Cambiar");
-
-        ddlEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel3.setText("Cambiar estado");
+        btnCambiar.setText("Enviar a Mantención");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,20 +83,16 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
                                     .addComponent(btnVolver))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(ddlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
                                 .addComponent(btnCambiar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -113,16 +103,12 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ddlEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCambiar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(btnVolver)
                 .addContainerGap())
         );
@@ -132,10 +118,8 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> ddlEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable listaVehiculos;
     private javax.swing.JTextField txtPatente;
@@ -150,8 +134,8 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     public void registrarEscuchador(ActionListener escuchador) {
         this.btnVolver.addActionListener(escuchador);
         this.btnVolver.setActionCommand(VOLVER);
-        this.txtPatente.addActionListener(escuchador);
-        this.txtPatente.setActionCommand(BUSCAR);
+        this.btnCambiar.addActionListener(escuchador);
+        this.btnCambiar.setActionCommand(CAMBIARCONDICION);
     }
     
     @Override
@@ -214,36 +198,5 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     @Override
     public String getPatente(){
         return this.txtPatente.getText();
-    }
-    
-    /**
-     * Llena con los estados el combobox
-     */
-    @Override
-    public void ddlCondiciones(ArrayList<String> condiciones){
-        //DefaultListModel<String> model = new DefaultListModel();
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
-        this.ddlEstado.setModel(model);
-        
-        for(int i = 0; i < condiciones.size(); i++) {
-            String condicion = condiciones.get(i);
-            
-            model.addElement(condicion);
-        }
-    }
-    
-    @Override
-    public void ddlCondiciones(ArrayList<String> condiciones, char strCondicion){
-        //DefaultListModel<String> model = new DefaultListModel();
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
-        this.ddlEstado.setModel(model);
-        
-        for(int i = 0; i < condiciones.size(); i++) {
-            String condicion = condiciones.get(i);
-            
-            model.addElement(condicion);
-        }
-        
-        model.setSelectedItem(strCondicion);
     }
 }

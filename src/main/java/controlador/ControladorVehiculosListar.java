@@ -23,7 +23,6 @@ public class ControladorVehiculosListar implements ActionListener {
         setModelo(modelo);
         getVista().registrarEscuchador(this);
         getVista().listarVehiculos(getModelo());
-        getVista().ddlCondiciones(getCondicion());
     }
 
     public ArrayList<String> getCondicion(){
@@ -72,20 +71,20 @@ public class ControladorVehiculosListar implements ActionListener {
             contenido.remove(getVista().getPanel());
             //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
-        } else if (command.equals(getVista().BUSCAR)){
-            //Se realiza una búsqueda del Vehículo para seleccionar en tabla.
-            //Se debe de rellenar el ddl de condiciones.
-            //Habría que pre seleccionar el tipo de estado que tiene asignado
-            Vehiculo vehiculo = Vehiculo.buscarVehiculo(getVista().getPatente(), getModelo());
-            if (vehiculo == null){
-                getVista().mostrarMensaje(3, "No se encontró ese vehículo con esa patente especificada");
-            }else{
-                //Se establece la condición al combobox
-                getVista().ddlCondiciones(getCondicion(), vehiculo.getCondicion());
-            }
+        } else if (command.equals(getVista().CAMBIARCONDICION)){
+            //Se extrae la patente
+            //Se busca y se verifica que exista el vehículo y se manda a mantención
+            try{
+                setModelo(Vehiculo.cambiarEstadoVehiculo(getVista().getPatente(), getModelo()));
+                getVista().listarVehiculos(getModelo());
+                getVista().mostrarMensaje(1, "El vehículo se envió a mantención");
+            }catch(Exception ex){
+                getVista().mostrarMensaje(3, "No se pudo completar la operación: " + ex.getMessage());
+            }//trycatch
+            
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
-        }
+        }//if
         
         contenido.validate();
         contenido.repaint();
