@@ -80,7 +80,8 @@ public class ControladorVehiculosListar implements ActionListener {
             if (vehiculo == null){
                 getVista().mostrarMensaje(3, "No se encontró ese vehículo con esa patente especificada");
             }else{
-                //Habría que traspasar el vehículo encontrado a la vista para establecer los datos a editar
+                //Se establece la condición al combobox
+                getVista().ddlCondiciones(getCondicion(), vehiculo.getCondicion());
             }
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");

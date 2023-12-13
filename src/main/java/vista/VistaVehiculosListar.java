@@ -21,7 +21,6 @@ import javax.swing.event.ListSelectionListener;
  * @author xavier.fuentes
  */
 public class VistaVehiculosListar extends javax.swing.JPanel implements InterfazVehiculoListar {
-
     /**
      * Creates new form VistaVehiculoListar
      */
@@ -231,5 +230,20 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
             
             model.addElement(condicion);
         }
+    }
+    
+    @Override
+    public void ddlCondiciones(ArrayList<String> condiciones, char strCondicion){
+        //DefaultListModel<String> model = new DefaultListModel();
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
+        this.ddlEstado.setModel(model);
+        
+        for(int i = 0; i < condiciones.size(); i++) {
+            String condicion = condiciones.get(i);
+            
+            model.addElement(condicion);
+        }
+        
+        model.setSelectedItem(strCondicion);
     }
 }

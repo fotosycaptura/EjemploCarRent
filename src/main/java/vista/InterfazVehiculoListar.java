@@ -21,4 +21,5 @@ public interface InterfazVehiculoListar {
     public void listarVehiculos(ArrayList<Vehiculo> vehiculos);
     public void ddlCondiciones(ArrayList<String> condiciones);
     public String getPatente();
+    public void ddlCondiciones(ArrayList<String> condiciones, char condicion);
 }
