@@ -4,12 +4,11 @@
  */
 package Utiles;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import modelo.Cliente;
+import modelo.Vehiculo;
 
 /**
  *
@@ -54,5 +53,38 @@ public class Archivos {
         }
         
         return lineasClientes;
+    }
+    
+    public static ArrayList<Vehiculo> LeerArchivoVehiculos(){
+        //Se genera un ArrayList de clientes vacío
+        ArrayList<Vehiculo> lineasVehiculos = new ArrayList<Vehiculo>();
+        
+        try {
+            //Se carga el archivo en memoria
+            File archivo = new File("Vehiculos.csv");
+
+            // VALIDACIÓN DEL ARCHIVO
+            if (!archivo.exists()) {
+                throw new IllegalArgumentException("El archivo no existe.");
+            }//if
+
+            // Se lee archivo
+            Scanner lector = new Scanner(archivo);
+            String columnas = lector.nextLine();
+            while(lector.hasNextLine()){
+                String linea = lector.nextLine();
+                String cortado[] = linea.split(";");
+                Vehiculo obj = new Vehiculo(cortado[0], cortado[1], cortado[2], Integer.parseInt(cortado[3]));
+                lineasVehiculos.add(obj);
+
+            }//while
+            lector.close();
+        }catch(Exception ex){
+            lineasVehiculos.add(new Vehiculo("DKXAT01", "Nissan1", "Sport 01", 2006));
+            lineasVehiculos.add(new Vehiculo("DKXAT02", "Nissan2", "Sport 02", 2006));
+            lineasVehiculos.add(new Vehiculo("DKXAT03", "Nissan3", "Sport 03", 2006));
+        }
+        
+        return lineasVehiculos;
     }
 }

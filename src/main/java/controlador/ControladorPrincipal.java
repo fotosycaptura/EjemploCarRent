@@ -24,6 +24,7 @@ public class ControladorPrincipal implements ActionListener {
     private InterfazPrincipal vista;
     
     private final ControladorClientes controladorClientes = new ControladorClientes();
+    private final ControladorVehiculos controladorVehiculos = new ControladorVehiculos();
     
     public ControladorPrincipal(JFrame ventana, InterfazPrincipal vista) {
         setVentana(ventana);
@@ -58,7 +59,12 @@ public class ControladorPrincipal implements ActionListener {
             contenido.add(getControladorClientes().getVista().getPanel());
         } else if (command.equals(getVista().VEHICULOS)) {
             System.out.println("HAGO CLICK AL VEHICULOS");
-            JOptionPane.showMessageDialog(getControladorClientes().getVista().getPanel(), "Opción no implementada", "Vehículos", JOptionPane.OK_OPTION);
+            getVista().getPanel().setVisible(false);
+            
+            //Se cargan datos de vehículos
+            getControladorVehiculos().setModelo(Archivos.LeerArchivoVehiculos()); 
+            
+            contenido.add(getControladorVehiculos().getVista().getPanel());
         } else if (command.equals(getVista().SALIR)) {
             int valor = JOptionPane.showConfirmDialog(getControladorClientes().getVista().getPanel(), "¿Está seguro que desea salir?", "Finalizar sistema", JOptionPane.OK_CANCEL_OPTION);
             if (valor == JOptionPane.OK_OPTION){
@@ -104,5 +110,9 @@ public class ControladorPrincipal implements ActionListener {
      */
     public ControladorClientes getControladorClientes() {
         return controladorClientes;
+    }
+    
+    public ControladorVehiculos getControladorVehiculos() {
+        return controladorVehiculos;
     }
 }

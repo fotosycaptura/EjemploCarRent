@@ -39,7 +39,7 @@ public class ControladorAgregarCliente implements ActionListener {
         } else if (command.equals(getVista().AGREGAR)) {
             try{
                 if (Cliente.encontrarCliente(getVista().getRut(), getModelo())){
-                    throw new IllegalArgumentException("El usuario que intenga ingresar ya existe");
+                    throw new IllegalArgumentException("El usuario que intenta ingresar ya existe");
                 }
                 /**
                  * Toca crear un nuevo cliente.
