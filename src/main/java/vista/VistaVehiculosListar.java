@@ -28,7 +28,6 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     public VistaVehiculosListar() {
         initComponents();
         //Inicializa la tabla de visualización de vehículo
-        inicializallenarTabla();
     }
 
     /**
@@ -68,9 +67,8 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
 
         btnVolver.setText("Volver");
 
-        jLabel2.setText("Vehículo seleccionado:");
+        jLabel2.setText("Seleccionar vehículo por patente:");
 
-        txtPatente.setEditable(false);
         txtPatente.setColumns(8);
 
         btnCambiar.setText("Cambiar");
@@ -153,6 +151,8 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     public void registrarEscuchador(ActionListener escuchador) {
         this.btnVolver.addActionListener(escuchador);
         this.btnVolver.setActionCommand(VOLVER);
+        this.txtPatente.addActionListener(escuchador);
+        this.txtPatente.setActionCommand(BUSCAR);
     }
     
     @Override
@@ -176,18 +176,20 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
     }
     
     /**
-     * Llena con datos la JTable
+     * Llena con datos la JTable. Además setea la misma tabla de solo lectura las celdas
+     * Y solo permite una sola selección - fila -
      * @param vehiculos 
      */
     @Override
     public void listarVehiculos(ArrayList<Vehiculo> vehiculos){
         //Se establecen las cabeceras de la tabla
         Object[] header = new Object[]{"Patente", "Marca", "Modelo", "Año", "Condición", "Precio Arriendo"};
+        
         //Se establece un model para la tabla, para evitar la edición por celda.
         DefaultTableModel model = new DefaultTableModel(header, 0){
             @Override
             public boolean isCellEditable(int i, int i1) {
-                return false; //To change body of generated methods, choose Tools | Templates.
+                return false; 
             }
         };
         this.listaVehiculos.setModel(model);
@@ -197,41 +199,20 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
             Vehiculo vehiculo = vehiculos.get(i);
             model.addRow(new Object[] {vehiculo.getPatente(), vehiculo.getMarca(), vehiculo.getModelo(), vehiculo.getAnho(), vehiculo.getCondicion(), vehiculo.getPrecioArriendo()});
         }//for
-        this.listaVehiculos.setModel(model);
-    }
-    
-    /**
-     * Inicializa la tabla con las propiedades de solo lectura, solo 1 edición
-     */
-    private void inicializallenarTabla(){
+        
+        //Seteo como no editable cada una de las celdas.
         for (int i = 0; i < listaVehiculos.getRowCount(); i++) {
             listaVehiculos.changeSelection(i, 1, false, false);
-        }
-        listaVehiculos.setColumnSelectionAllowed(false);
-        listaVehiculos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        }//for
         
-        ListSelectionModel selectionModel = listaVehiculos.getSelectionModel();
-
-//        selectionModel.addListSelectionListener(new ListSelectionListener() {
-//            public void valueChanged(ListSelectionEvent e) {
-//                escuchadorTabla(e);
-//            }
-//        });
+        //Seteo como no editable por columna
+        listaVehiculos.setColumnSelectionAllowed(false);
+        
+        //Solo permito una sola selección de la JTable
+        listaVehiculos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     
-//    private void escuchadorTabla(ListSelectionEvent e){
-//        if (e.getValueIsAdjusting())
-//                return;
-//        if (listaVehiculos.getSelectedRow() > -1){
-//            String patenteSeleccionada = listaVehiculos.getModel().getValueAt(listaVehiculos.getSelectedRow(), 0).toString();
-//            this.txtPatente.setText(patenteSeleccionada);
-//            //Habría que pre seleccionar el tipo de estado que tiene asignado
-//            Vehiculo vehiculo = Vehiculo.buscarVehiculo(patenteSeleccionada, getVista().getModelo());
-//        }
-//        
-//        //System.out.println(listaVehiculos.getSelectedRow());
-//    }
-    
+    @Override
     public String getPatente(){
         return this.txtPatente.getText();
     }
@@ -250,6 +231,5 @@ public class VistaVehiculosListar extends javax.swing.JPanel implements Interfaz
             
             model.addElement(condicion);
         }
-        
     }
 }

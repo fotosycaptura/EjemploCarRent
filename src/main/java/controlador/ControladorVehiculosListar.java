@@ -72,6 +72,16 @@ public class ControladorVehiculosListar implements ActionListener {
             contenido.remove(getVista().getPanel());
             //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
+        } else if (command.equals(getVista().BUSCAR)){
+            //Se realiza una búsqueda del Vehículo para seleccionar en tabla.
+            //Se debe de rellenar el ddl de condiciones.
+            //Habría que pre seleccionar el tipo de estado que tiene asignado
+            Vehiculo vehiculo = Vehiculo.buscarVehiculo(getVista().getPatente(), getModelo());
+            if (vehiculo == null){
+                getVista().mostrarMensaje(3, "No se encontró ese vehículo con esa patente especificada");
+            }else{
+                //Habría que traspasar el vehículo encontrado a la vista para establecer los datos a editar
+            }
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }
