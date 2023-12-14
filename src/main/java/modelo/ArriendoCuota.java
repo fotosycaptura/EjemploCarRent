@@ -4,7 +4,10 @@
  */
 package modelo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -57,5 +60,27 @@ public class ArriendoCuota extends Arriendo {
         }
         
         setCuotas(cuotas);
+    }
+    public static int generarNumeroArriendo(ArrayList<ArriendoCuota> arriendos){
+        int numeroGenerado = 1;
+        if (arriendos != null && !arriendos.isEmpty()){
+            for (ArriendoCuota arriendo: arriendos){
+                if (arriendo.getNumero() > numeroGenerado){
+                    numeroGenerado = arriendo.getNumero() + 1;
+                }
+            }//for
+        }//if
+        System.out.println(numeroGenerado);
+        return numeroGenerado;
+    }
+    
+    public static GregorianCalendar ConvertFecha(String fecha) throws ParseException {
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+        Date dFecha = fmt.parse(fecha);
+        
+        GregorianCalendar fechaConvertida = new GregorianCalendar();
+        fechaConvertida.setTime(dFecha);
+        return fechaConvertida;
+        
     }
 }

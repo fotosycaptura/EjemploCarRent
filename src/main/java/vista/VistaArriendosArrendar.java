@@ -190,6 +190,8 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
         
         this.btnVolver.addActionListener(escuchador);
         this.btnVolver.setActionCommand(VOLVER);
+        this.btnGuardarArriendo.addActionListener(escuchador);
+        this.btnGuardarArriendo.setActionCommand(GUARDAR_ARRIENDO);
     }
     
     @Override
@@ -203,7 +205,7 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
     
     @Override
     public int mostrarMensaje(int tipoMensaje, String msj){
-        String strTitulo = "Agregar Vehículo";
+        String strTitulo = "Arriendo con cuotas";
         int retorno = 0;
         switch (tipoMensaje){
             case 1: //Solo informativo
@@ -243,5 +245,33 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
 
             model.addElement(vehiculo.toString());
         }//for
+    }
+    
+    @Override
+    public String getClienteSeleccionado(){
+        if (this.ddlCliente.getSelectedIndex() == 0){
+            
+        }
+        return this.ddlCliente.getSelectedItem().toString();
+    }
+    
+    @Override
+    public String getVehiculoSeleccionado(){
+        return this.ddlVehiculo.getSelectedItem().toString();
+    }
+    
+    @Override
+    public String getFecha(){
+        return this.txtFecha.getText();
+    }
+    
+    @Override
+    public String getDias(){
+        return this.txtDias.getText();
+    }
+    
+    @Override
+    public String getCantidadCuotas(){
+        return this.txtNumCuotas.getText();
     }
 }

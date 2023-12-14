@@ -6,7 +6,11 @@ package controlador;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 import modelo.ArriendoCuota;
@@ -42,6 +46,26 @@ public class ControladorArriendosArrendar implements ActionListener {
             contenido.remove(getVista().getPanel());
             //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
+        } else if (command.equals(getVista().GUARDAR_ARRIENDO)){
+
+            try {
+                GregorianCalendar fecha = ArriendoCuota.ConvertFecha(getVista().getFecha());
+                
+                ArriendoCuota nuevoArriendo = new ArriendoCuota(
+                        ArriendoCuota.generarNumeroArriendo(getModelo()),
+                        fecha,
+                        Integer.parseInt(getVista().getDias()),
+                        Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0, 10), getClientes()),
+                        Vehiculo.buscarVehiculo(getVista().getVehiculoSeleccionado().substring(0,8), vehiculos),
+                        Integer.parseInt(getVista().getCantidadCuotas())
+                );
+                nuevoArriendo.IngresarArriendo();
+                getVista().mostrarMensaje(1, "Arriendo ingresado exitosamente");
+            } catch(Exception ex){
+                getVista().mostrarMensaje(3, "Ocurrió un error: " + ex.getMessage());
+            }//trycatch
+                    
+            System.out.println(getVista().getClienteSeleccionado());
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }

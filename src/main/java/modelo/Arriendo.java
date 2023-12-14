@@ -6,6 +6,7 @@ package modelo;
 
 import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
 /**
@@ -242,4 +243,6 @@ public class Arriendo {
         }
         System.out.println("");
     }
+    
+    
 }
