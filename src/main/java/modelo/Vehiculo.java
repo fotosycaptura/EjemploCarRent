@@ -185,10 +185,7 @@ public class Vehiculo {
      */
     @Override
     public String toString() {
-        return "PATENTE: " + getPatente() + "\t" +
-                "MODELO: " + getModelo() + "\t" +
-                "MARCA: " + getMarca() + "\t" +
-                "CONDICION: " + getCondicion();
+        return getPatente() + " - " + getMarca() + "/" + getModelo() + " - " + getAnho() + " - " + getCondicion();
     }
     
     public static Boolean encontrarVehiculo(String patente, ArrayList<Vehiculo> vehiculos){
