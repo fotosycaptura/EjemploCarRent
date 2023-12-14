@@ -25,6 +25,7 @@ public class ControladorPrincipal implements ActionListener {
     
     private final ControladorClientes controladorClientes = new ControladorClientes();
     private final ControladorVehiculos controladorVehiculos = new ControladorVehiculos();
+    private final ControladorArriendos controladorArriendos = new ControladorArriendos();
     
     public ControladorPrincipal(JFrame ventana, InterfazPrincipal vista) {
         setVentana(ventana);
@@ -48,7 +49,9 @@ public class ControladorPrincipal implements ActionListener {
         String command = e.getActionCommand();
         
         if (command.equals(getVista().ARRIENDOS)) {
-            JOptionPane.showMessageDialog(getControladorClientes().getVista().getPanel(), "Opción no implementada", "Arriendos", JOptionPane.OK_OPTION);
+            getVista().getPanel().setVisible(false);
+            contenido.add(getControladorArriendos().getVista().getPanel());
+            
             System.out.println("HAGO CLICK AL ARRIENDO");
         } else if (command.equals(getVista().CLIENTES)) {
             getVista().getPanel().setVisible(false);
@@ -114,5 +117,9 @@ public class ControladorPrincipal implements ActionListener {
     
     public ControladorVehiculos getControladorVehiculos() {
         return controladorVehiculos;
+    }
+    
+    public ControladorArriendos getControladorArriendos() {
+        return controladorArriendos;
     }
 }
