@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import modelo.Cliente;
 import modelo.Vehiculo;
+import modelo.CuotaArriendo;
 
 /**
  *
@@ -32,5 +33,6 @@ public interface InterfazArriendosArrendar {
     public String getPrecioArriendoPorDia();
     public void setMontoAPagar(String monto);
     public void setFecha(String fecha);
+    public void setMostrarCuotas(ArrayList<CuotaArriendo> cuotas);
 
 }
