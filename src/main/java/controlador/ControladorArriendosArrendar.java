@@ -8,60 +8,53 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import modelo.ArriendoCuota;
-import modelo.ArriendoCuota;
-import vista.InterfazArriendos;
-import vista.VistaArriendos;
+import vista.InterfazArriendosArrendar;
 import vista.VistaArriendosArrendar;
 /**
  *
  * @author xavie
  */
-public class ControladorArriendos implements ActionListener{
-    private InterfazArriendos vista = new VistaArriendos();
-    private ArrayList<ArriendoCuota> modelo = new ArrayList<ArriendoCuota>();
+public class ControladorArriendosArrendar implements ActionListener {
+    private InterfazArriendosArrendar vista = new VistaArriendosArrendar();
+    private ArrayList<ArriendoCuota> modelo;
 
-    public ControladorArriendos() {
-         getVista().registrarEscuchador(this);
+    public ControladorArriendosArrendar(InterfazArriendosArrendar vista, ArrayList<ArriendoCuota> modelo) {
+        setVista(vista);
+        setModelo(modelo);
+        getVista().registrarEscuchador(this);
     }
-
+    
+    
+    
     @Override
     public void actionPerformed(ActionEvent e){
         Container contenido = getVista().getPanel().getParent();
         String command = e.getActionCommand();
         
-        if (command.equals(getVista().LISTAR)){
-            getVista().mostrarMensaje(0, "No implementado");
-        } else if (command.equals(getVista().ARRENDAR)){
-            ControladorArriendosArrendar controlador = new ControladorArriendosArrendar(
-                    new VistaArriendosArrendar(), 
-                    getModelo()
-            );
-            getVista().getPanel().setVisible(false);
-            contenido.add(controlador.getVista().getPanel());
-        } else if (command.equals(getVista().PAGAR)){
-            getVista().mostrarMensaje(0, "No implementado");
-        } else if (command.equals(getVista().VOLVER)) {
+        if (command.equals(getVista().VOLVER)) {
+            //Se remueve el panel
             contenido.remove(getVista().getPanel());
+            //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
         } else {
-            getVista().mostrarMensaje(0, "No implementado");
+            throw new UnsupportedOperationException("Acción no implementada.");
         }
         
         contenido.validate();
         contenido.repaint();
     }
-
+    
     /**
      * @return the vista
      */
-    public InterfazArriendos getVista() {
+    public InterfazArriendosArrendar getVista() {
         return vista;
     }
-
+    
     /**
      * @param vista the vista to set
      */
-    public void setVista(InterfazArriendos vista) {
+    public void setVista(InterfazArriendosArrendar vista) {
         this.vista = vista;
     }
 
@@ -78,5 +71,4 @@ public class ControladorArriendos implements ActionListener{
     public void setModelo(ArrayList<ArriendoCuota> modelo) {
         this.modelo = modelo;
     }
-    
 }
