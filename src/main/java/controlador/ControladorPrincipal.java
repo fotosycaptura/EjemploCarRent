@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import vista.InterfazPrincipal;
 import Utiles.Archivos;
+import java.awt.GridBagLayout;
 
 /**
  *
@@ -40,9 +41,11 @@ public class ControladorPrincipal implements ActionListener {
     }
     
     public void iniciar() {
-        getVentana().setSize(400, 400);
-        getVentana().setLayout(new BorderLayout());
+        getVentana().setSize(640, 400);
+        //getVentana().setLayout(new BorderLayout());
+        getVentana().setLayout(new GridBagLayout());
         getVentana().setResizable(false);
+        //Para centrar en la ventana del usuario
         getVentana().setLocationRelativeTo(null);
         getVentana().setDefaultCloseOperation(EXIT_ON_CLOSE);
         getVentana().add(getVista().getPanel());
