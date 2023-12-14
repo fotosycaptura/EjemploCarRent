@@ -292,4 +292,9 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
     public String getPrecioArriendoPorDia(){
         return this.txtPrecioDia.getText();
     }
+    
+    @Override
+    public void setMontoAPagar(String monto){
+        this.txtTotal.setText(monto);
+    }
 }

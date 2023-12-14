@@ -64,13 +64,18 @@ public class ControladorArriendosArrendar implements ActionListener {
                         vehiculoPorArrendar,
                         Integer.parseInt(getVista().getCantidadCuotas())
                 );
+                
                 //Se intenta guardar el arriendo. Si es exitoso se crea
                 nuevoArriendo.IngresarArriendo();
+                
                 //Se deberían de refrescar el ddl de vehículos
                 getVista().setDllVehiculos(getVista().getVehiculoSeleccionado().substring(0,8), getVehiculos());
                 
                 //Se agrega al modelo
                 setModelo(ArriendoCuota.agregarArriendo(nuevoArriendo, modelo));
+                
+                //Se envía el cálculo del monto el precio del arriendo total a la vista
+                getVista().setMontoAPagar(String.valueOf(nuevoArriendo.obtenerMonto()));
                 
                 //Se despliega mensaje al usuario
                 getVista().mostrarMensaje(1, "Arriendo ingresado exitosamente");

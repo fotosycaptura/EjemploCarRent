@@ -196,7 +196,7 @@ public class Arriendo {
      * número de días
      * @return 
      */
-    private int obtenerMonto(){
+    public int obtenerMonto(){
         return getVehiculo().getPrecioArriendo() * getDias();
     }
     
