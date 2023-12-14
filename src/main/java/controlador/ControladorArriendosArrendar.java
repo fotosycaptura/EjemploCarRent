@@ -90,6 +90,7 @@ public class ControladorArriendosArrendar implements ActionListener {
      */
     public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
+        getVista().setDllVehiculos(getVehiculos());
     }
 
     /**
