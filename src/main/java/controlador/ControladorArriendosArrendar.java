@@ -6,19 +6,15 @@ package controlador;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
 import modelo.ArriendoCuota;
 import vista.InterfazArriendosArrendar;
 import vista.VistaArriendosArrendar;
 import modelo.Vehiculo;
 import modelo.Cliente;
+import modelo.CuotaArriendo;
 /**
  *
  * @author xavie
@@ -28,6 +24,7 @@ public class ControladorArriendosArrendar implements ActionListener {
     private ArrayList<Vehiculo> vehiculos;
     private ArrayList<Cliente> clientes;
     private ArrayList<ArriendoCuota> modelo;
+    private ArrayList<CuotaArriendo> cuotas;
 
     public ControladorArriendosArrendar(InterfazArriendosArrendar vista, ArrayList<ArriendoCuota> modelo, ArrayList<Cliente> clientes, ArrayList<Vehiculo> vehiculos) {
         setVista(vista);
@@ -67,7 +64,8 @@ public class ControladorArriendosArrendar implements ActionListener {
                         Integer.parseInt(getVista().getCantidadCuotas())
                 );
                 
-                //Se intenta guardar el arriendo. Si es exitoso se crea
+                //Se intenta guardar el arriendo. Si es exitoso se crea.
+                //Al generarse exitoso, también internamente ya se generaron las cuotas
                 nuevoArriendo.IngresarArriendo();
                 
                 //Se deberían de refrescar el ddl de vehículos
@@ -78,6 +76,9 @@ public class ControladorArriendosArrendar implements ActionListener {
                 
                 //Se envía el cálculo del monto el precio del arriendo total a la vista
                 getVista().setMontoAPagar(String.valueOf(nuevoArriendo.obtenerMonto()));
+                
+                //Se debería de desplegar las cuotas generadas
+                getVista().setMostrarCuotas(nuevoArriendo.getCuotas());
                 
                 //Se despliega mensaje al usuario
                 getVista().mostrarMensaje(1, "Arriendo ingresado exitosamente");
