@@ -141,6 +141,23 @@ public class Cliente {
     }
     
     /**
+     * Se utiliza para encontrar un cliente mediante la cedula.
+     * Si es encontrado, se retorna el objeto cliente, en caso contrario
+     * retorna null
+     * @param cedula
+     * @param clientes
+     * @return 
+     */
+    public static Cliente buscarCliente(String cedula, ArrayList<Cliente> clientes){
+        for (Cliente cliente: clientes){
+            if (cliente.getCedula().equals(cedula)){
+                return cliente;
+            }
+        }//for
+        return null;
+    }
+    
+    /**
      * Se encarga de eliminar a un cliente del ArrayList
      * En caso exitoso, retorna true
      * Si no, retornará false.
@@ -201,6 +218,13 @@ public class Cliente {
         }//if
         
         return clientes;
+    }
+    /**
+     * Sobreescribe el método toString para desplegar valores personalizados.
+     */
+    @Override
+    public String toString() {
+        return getCedula() + " - " + getNombre();
     }
 
 }

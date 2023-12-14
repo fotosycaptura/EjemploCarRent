@@ -30,6 +30,10 @@ public class CuotaArriendo {
      * @param numCuota the numCuota to set
      */
     public void setNumCuota(int numCuota) {
+        if (numCuota <= 0){
+            throw new IllegalArgumentException("El número de cuota debe de ser mayor o igual que 1.");
+        }
+        
         this.numCuota = numCuota;
     }
 
@@ -44,6 +48,10 @@ public class CuotaArriendo {
      * @param valorCouta the valorCouta to set
      */
     public void setValorCouta(int valorCouta) {
+        if (valorCouta <= 0){
+            throw new IllegalArgumentException("El valor de una cuota debe de ser mayor que 0.");
+        }
+        
         this.valorCouta = valorCouta;
     }
 

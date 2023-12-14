@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import vista.InterfazPrincipal;
 import Utiles.Archivos;
+import java.awt.GridBagLayout;
 
 /**
  *
@@ -31,12 +32,20 @@ public class ControladorPrincipal implements ActionListener {
         setVentana(ventana);
         setVista(vista);
         getVista().registrarEscuchador(this);
+        
+        //Carga de datos para los controladores
+        //Se cargan datos de clientes
+        getControladorClientes().setModelo(Archivos.LeerArchivoClientes());         
+        //Se cargan datos de vehículos
+        getControladorVehiculos().setModelo(Archivos.LeerArchivoVehiculos()); 
     }
     
     public void iniciar() {
-        getVentana().setSize(400, 400);
-        getVentana().setLayout(new BorderLayout());
+        getVentana().setSize(640, 400);
+        //getVentana().setLayout(new BorderLayout());
+        getVentana().setLayout(new GridBagLayout());
         getVentana().setResizable(false);
+        //Para centrar en la ventana del usuario
         getVentana().setLocationRelativeTo(null);
         getVentana().setDefaultCloseOperation(EXIT_ON_CLOSE);
         getVentana().add(getVista().getPanel());
@@ -49,24 +58,22 @@ public class ControladorPrincipal implements ActionListener {
         String command = e.getActionCommand();
         
         if (command.equals(getVista().ARRIENDOS)) {
+            //se oculta el que esté visible
             getVista().getPanel().setVisible(false);
+            //Hay que traspasar los datos de vehículos, clientes
+            getControladorArriendos().setClientes(getControladorClientes().getModelo());
+            getControladorArriendos().setVehiculos(getControladorVehiculos().getModelo());
+            //Se despliega panel de arriendos
             contenido.add(getControladorArriendos().getVista().getPanel());
-            
-            System.out.println("HAGO CLICK AL ARRIENDO");
         } else if (command.equals(getVista().CLIENTES)) {
+            //Se oculta el que esté visible
             getVista().getPanel().setVisible(false);
-            
-            //Se cargan datos de clientes
-            getControladorClientes().setModelo(Archivos.LeerArchivoClientes()); 
-            
+            //Se muestra el de clientes
             contenido.add(getControladorClientes().getVista().getPanel());
         } else if (command.equals(getVista().VEHICULOS)) {
-            System.out.println("HAGO CLICK AL VEHICULOS");
+            //Se oculta el panel que esté visible
             getVista().getPanel().setVisible(false);
-            
-            //Se cargan datos de vehículos
-            getControladorVehiculos().setModelo(Archivos.LeerArchivoVehiculos()); 
-            
+            //Se muestra el de vehículos
             contenido.add(getControladorVehiculos().getVista().getPanel());
         } else if (command.equals(getVista().SALIR)) {
             int valor = JOptionPane.showConfirmDialog(getControladorClientes().getVista().getPanel(), "¿Está seguro que desea salir?", "Finalizar sistema", JOptionPane.OK_CANCEL_OPTION);
