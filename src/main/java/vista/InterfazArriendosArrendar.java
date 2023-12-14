@@ -6,6 +6,7 @@ package vista;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import modelo.Cliente;
 
 /**
  *
@@ -19,4 +20,5 @@ public interface InterfazArriendosArrendar {
     public void registrarEscuchador(ActionListener escuchador);
     public void vaciarCampos();
     public int mostrarMensaje(int tipoMensaje, String msj);
+    public void setDllCliente(ArrayList<Cliente> clientes);
 }

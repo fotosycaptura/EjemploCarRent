@@ -7,24 +7,30 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import modelo.ArriendoCuota;
 import vista.InterfazArriendosArrendar;
 import vista.VistaArriendosArrendar;
+import modelo.Vehiculo;
+import modelo.Cliente;
 /**
  *
  * @author xavie
  */
 public class ControladorArriendosArrendar implements ActionListener {
     private InterfazArriendosArrendar vista = new VistaArriendosArrendar();
+    private ArrayList<Vehiculo> vehiculos;
+    private ArrayList<Cliente> clientes;
     private ArrayList<ArriendoCuota> modelo;
 
-    public ControladorArriendosArrendar(InterfazArriendosArrendar vista, ArrayList<ArriendoCuota> modelo) {
+    public ControladorArriendosArrendar(InterfazArriendosArrendar vista, ArrayList<ArriendoCuota> modelo, ArrayList<Cliente> clientes, ArrayList<Vehiculo> vehiculos) {
         setVista(vista);
+        setClientes(clientes);
+        setVehiculos(vehiculos);
         setModelo(modelo);
         getVista().registrarEscuchador(this);
     }
-    
-    
     
     @Override
     public void actionPerformed(ActionEvent e){
@@ -70,5 +76,34 @@ public class ControladorArriendosArrendar implements ActionListener {
      */
     public void setModelo(ArrayList<ArriendoCuota> modelo) {
         this.modelo = modelo;
+    }
+
+    /**
+     * @return the vehiculos
+     */
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    /**
+     * @param vehiculos the vehiculos to set
+     */
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    /**
+     * @return the clientes
+     */
+    public ArrayList<Cliente> getClientes() {
+        return this.clientes;
+    }
+
+    /**
+     * @param clientes the clientes to set
+     */
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+        getVista().setDllCliente(getClientes());
     }
 }
