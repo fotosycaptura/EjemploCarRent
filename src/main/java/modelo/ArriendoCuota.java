@@ -52,15 +52,24 @@ public class ArriendoCuota extends Arriendo {
         this.cuotas = cuotas;
     }
     
+    /**
+     * Genera las cuotas necesarias para el pago
+     * De acuerdo al precio por día y al total de días que se arrendará
+     * Se calcula el monto total y se divide por la cantidad de cuotas.
+     */
     private void asignarCuotas() {
         ArrayList<CuotaArriendo> cuotas = new ArrayList<CuotaArriendo>();
-        
         for (int i = 0; i < getCantCuotas(); i++) {
-            cuotas.add(new CuotaArriendo(i + 1, 0, false));
+            int MontoTotal = this.getVehiculo().getPrecioArriendo() * this.getDias();
+            int PrecioPorDia = MontoTotal / this.getCantCuotas();
+            cuotas.add(new CuotaArriendo(i + 1, PrecioPorDia, false));
         }
         
         setCuotas(cuotas);
     }
+    /**
+     * Genera el número de arriendo de forma automática, por así decirlo...
+     */
     public static int generarNumeroArriendo(ArrayList<ArriendoCuota> arriendos){
         int numeroGenerado = 1;
         if (arriendos != null && !arriendos.isEmpty()){
@@ -73,8 +82,14 @@ public class ArriendoCuota extends Arriendo {
         System.out.println(numeroGenerado);
         return numeroGenerado;
     }
-    
+    /**
+     * Agrega un arriendo nuevo al ArrayList y lo retorna
+     * @param arriendo
+     * @param arriendos
+     * @return 
+     */
     public static ArrayList<ArriendoCuota> agregarArriendo(ArriendoCuota arriendo, ArrayList<ArriendoCuota> arriendos){
+        arriendo.asignarCuotas();
         arriendos.add(arriendo);
         return arriendos;
     }
