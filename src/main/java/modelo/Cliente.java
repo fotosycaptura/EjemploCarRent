@@ -202,5 +202,12 @@ public class Cliente {
         
         return clientes;
     }
+    /**
+     * Sobreescribe el método toString para desplegar valores personalizados.
+     */
+    @Override
+    public String toString() {
+        return getCedula() + " - " + getNombre();
+    }
 
 }
