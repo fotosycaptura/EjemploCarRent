@@ -23,6 +23,7 @@ public interface InterfazArriendosArrendar {
     public int mostrarMensaje(int tipoMensaje, String msj);
     public void setDllCliente(ArrayList<Cliente> clientes);
     public void setDllVehiculos(ArrayList<Vehiculo> vehiculos);
+    public void setDllVehiculos(String patente, ArrayList<Vehiculo> vehiculos);
     public String getClienteSeleccionado();
     public String getVehiculoSeleccionado();
     public String getFecha();

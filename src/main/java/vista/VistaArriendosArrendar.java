@@ -248,6 +248,21 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
     }
     
     @Override
+    public void setDllVehiculos(String patente, ArrayList<Vehiculo> vehiculos){
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
+        this.ddlVehiculo.setModel(model);
+        model.addElement(new String("--Seleccione Vehículo--"));
+        
+        for(int i = 0; i < vehiculos.size(); i++) {
+            Vehiculo vehiculo = vehiculos.get(i);
+            model.addElement(vehiculo.toString());
+            if (vehiculo.getPatente().equals(patente)){
+                model.setSelectedItem(vehiculo.toString());
+            }
+        }//for
+    }
+    
+    @Override
     public String getClienteSeleccionado(){
         if (this.ddlCliente.getSelectedIndex() == 0){
             

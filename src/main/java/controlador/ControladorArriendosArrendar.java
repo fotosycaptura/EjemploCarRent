@@ -60,6 +60,9 @@ public class ControladorArriendosArrendar implements ActionListener {
                         Integer.parseInt(getVista().getCantidadCuotas())
                 );
                 nuevoArriendo.IngresarArriendo();
+                //Se deberían de refrescar el ddl de vehículos
+                getVista().setDllVehiculos(getVista().getVehiculoSeleccionado().substring(0,8), getVehiculos());
+                
                 getVista().mostrarMensaje(1, "Arriendo ingresado exitosamente");
             } catch(Exception ex){
                 getVista().mostrarMensaje(3, "Ocurrió un error: " + ex.getMessage());
