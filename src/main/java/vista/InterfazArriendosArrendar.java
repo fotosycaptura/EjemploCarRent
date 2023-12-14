@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import modelo.Cliente;
+import modelo.Vehiculo;
 
 /**
  *
@@ -21,4 +22,5 @@ public interface InterfazArriendosArrendar {
     public void vaciarCampos();
     public int mostrarMensaje(int tipoMensaje, String msj);
     public void setDllCliente(ArrayList<Cliente> clientes);
+    public void setDllVehiculos(ArrayList<Vehiculo> vehiculos);
 }
