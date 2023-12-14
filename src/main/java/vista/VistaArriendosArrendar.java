@@ -11,6 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Cliente;
+import modelo.Vehiculo;
 
 /**
  *
@@ -101,7 +102,7 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
                                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(84, 84, 84)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(ddlVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -229,6 +230,18 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
             Cliente cliente = clientes.get(i);
 
             model.addElement(cliente.toString());
+        }//for
+    }
+    
+    @Override
+    public void setDllVehiculos(ArrayList<Vehiculo> vehiculos){
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
+        this.ddlVehiculo.setModel(model);
+        model.addElement(new String("--Seleccione Vehículo--"));
+        for(int i = 0; i < vehiculos.size(); i++) {
+            Vehiculo vehiculo = vehiculos.get(i);
+
+            model.addElement(vehiculo.toString());
         }//for
     }
 }
