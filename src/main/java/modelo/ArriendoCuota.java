@@ -86,6 +86,18 @@ public class ArriendoCuota extends Arriendo {
         GregorianCalendar fechaConvertida = new GregorianCalendar();
         fechaConvertida.setTime(dFecha);
         return fechaConvertida;
-        
+    }
+    
+    /**
+     * Se encarga de obtener una fecha en string del día de hoy.
+     * @return 
+     */
+    public static String getHoy(){
+        GregorianCalendar fechaHoy = new GregorianCalendar();
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+        fmt.setCalendar(fechaHoy);
+        String fechaFormateada = fmt.format(fechaHoy.getTime());
+
+        return fechaFormateada;
     }
 }

@@ -31,5 +31,6 @@ public interface InterfazArriendosArrendar {
     public String getCantidadCuotas();
     public String getPrecioArriendoPorDia();
     public void setMontoAPagar(String monto);
+    public void setFecha(String fecha);
 
 }

@@ -35,6 +35,7 @@ public class ControladorArriendosArrendar implements ActionListener {
         setVehiculos(vehiculos);
         setModelo(modelo);
         getVista().registrarEscuchador(this);
+        getVista().setFecha(ArriendoCuota.getHoy());
     }
     
     @Override
@@ -50,6 +51,7 @@ public class ControladorArriendosArrendar implements ActionListener {
         } else if (command.equals(getVista().GUARDAR_ARRIENDO)){
 
             try {
+                //La fecha se convierte en una que se pueda manejar por el sistema
                 GregorianCalendar fecha = ArriendoCuota.ConvertFecha(getVista().getFecha());
                 Vehiculo vehiculoPorArrendar = Vehiculo.buscarVehiculo(getVista().getVehiculoSeleccionado().substring(0,8), vehiculos);
                 if (vehiculoPorArrendar != null){

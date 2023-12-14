@@ -297,4 +297,9 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
     public void setMontoAPagar(String monto){
         this.txtTotal.setText(monto);
     }
+    
+    @Override
+    public void setFecha(String fecha){
+        this.txtFecha.setText(fecha);
+    }
 }
