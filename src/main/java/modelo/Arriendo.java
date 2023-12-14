@@ -6,6 +6,7 @@ package modelo;
 
 import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
 /**
@@ -195,7 +196,7 @@ public class Arriendo {
      * número de días
      * @return 
      */
-    private int obtenerMonto(){
+    public int obtenerMonto(){
         return getVehiculo().getPrecioArriendo() * getDias();
     }
     
@@ -242,4 +243,6 @@ public class Arriendo {
         }
         System.out.println("");
     }
+    
+    
 }
