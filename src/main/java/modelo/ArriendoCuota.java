@@ -74,6 +74,11 @@ public class ArriendoCuota extends Arriendo {
         return numeroGenerado;
     }
     
+    public static ArrayList<ArriendoCuota> agregarArriendo(ArriendoCuota arriendo, ArrayList<ArriendoCuota> arriendos){
+        arriendos.add(arriendo);
+        return arriendos;
+    }
+    
     public static GregorianCalendar ConvertFecha(String fecha) throws ParseException {
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         Date dFecha = fmt.parse(fecha);

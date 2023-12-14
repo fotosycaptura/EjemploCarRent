@@ -29,5 +29,6 @@ public interface InterfazArriendosArrendar {
     public String getFecha();
     public String getDias();
     public String getCantidadCuotas();
+    public String getPrecioArriendoPorDia();
 
 }

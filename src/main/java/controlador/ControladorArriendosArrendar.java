@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,20 +51,33 @@ public class ControladorArriendosArrendar implements ActionListener {
 
             try {
                 GregorianCalendar fecha = ArriendoCuota.ConvertFecha(getVista().getFecha());
-                
+                Vehiculo vehiculoPorArrendar = Vehiculo.buscarVehiculo(getVista().getVehiculoSeleccionado().substring(0,8), vehiculos);
+                if (vehiculoPorArrendar != null){
+                    vehiculoPorArrendar.setPrecioArriendo(Integer.parseInt(getVista().getPrecioArriendoPorDia()));
+                }//if
+                //Se crea el arriendo
                 ArriendoCuota nuevoArriendo = new ArriendoCuota(
                         ArriendoCuota.generarNumeroArriendo(getModelo()),
                         fecha,
                         Integer.parseInt(getVista().getDias()),
                         Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0, 10), getClientes()),
-                        Vehiculo.buscarVehiculo(getVista().getVehiculoSeleccionado().substring(0,8), vehiculos),
+                        vehiculoPorArrendar,
                         Integer.parseInt(getVista().getCantidadCuotas())
                 );
+                //Se intenta guardar el arriendo. Si es exitoso se crea
                 nuevoArriendo.IngresarArriendo();
                 //Se deberían de refrescar el ddl de vehículos
                 getVista().setDllVehiculos(getVista().getVehiculoSeleccionado().substring(0,8), getVehiculos());
                 
+                //Se agrega al modelo
+                setModelo(ArriendoCuota.agregarArriendo(nuevoArriendo, modelo));
+                
+                //Se despliega mensaje al usuario
                 getVista().mostrarMensaje(1, "Arriendo ingresado exitosamente");
+            } catch (ParseException ex) {
+                getVista().mostrarMensaje(3, "Debe ingresar una fecha en formato día, mes, año: dd-MM-yyyy");
+            }catch (NumberFormatException ex) {
+                getVista().mostrarMensaje(3, "Para el caso de días y cuotas, este valor debe de ser un número");
             } catch(Exception ex){
                 getVista().mostrarMensaje(3, "Ocurrió un error: " + ex.getMessage());
             }//trycatch

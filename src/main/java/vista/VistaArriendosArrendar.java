@@ -5,9 +5,7 @@
 package vista;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Cliente;
@@ -288,5 +286,10 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
     @Override
     public String getCantidadCuotas(){
         return this.txtNumCuotas.getText();
+    }
+    
+    @Override
+    public String getPrecioArriendoPorDia(){
+        return this.txtPrecioDia.getText();
     }
 }
