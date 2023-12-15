@@ -24,7 +24,6 @@ public class ControladorArriendosArrendar implements ActionListener {
     private ArrayList<Vehiculo> vehiculos;
     private ArrayList<Cliente> clientes;
     private ArrayList<ArriendoCuota> modelo;
-    private ArrayList<CuotaArriendo> cuotas;
 
     public ControladorArriendosArrendar(InterfazArriendosArrendar vista, ArrayList<ArriendoCuota> modelo, ArrayList<Cliente> clientes, ArrayList<Vehiculo> vehiculos) {
         setVista(vista);
@@ -116,13 +115,15 @@ public class ControladorArriendosArrendar implements ActionListener {
                     getVista().setPrecioPorDia(arriendoBuscado.getVehiculo().getPrecioArriendo());
                     //Se setea el monto a pagar
                     getVista().setMontoAPagar(String.valueOf(arriendoBuscado.obtenerMonto()));
-                    //Se setean las cuotas por pagar
+                    //Se setean las cuotas por pagar en la vista (tabla)
                     getVista().setMostrarCuotas(arriendoBuscado.getCuotas());
                     
                     //Se verifica si la primera cuota se encuentra pagada de antes o no.
                     if (!arriendoBuscado.getCuotas().getFirst().isPagada()){
                         if (getVista().mostrarMensaje(2, "¿Confirma pago primera cuota?") == 0){
-                            
+                            arriendoBuscado.getCuotas().getFirst().setPagada(true);
+                            //Se debe de refrescar las cuotas de la vista.(tabla)
+                            getVista().setMostrarCuotas(arriendoBuscado.getCuotas());
                         }else{
                             getVista().mostrarMensaje(1, "Operación cancelada.");
                         }//if
