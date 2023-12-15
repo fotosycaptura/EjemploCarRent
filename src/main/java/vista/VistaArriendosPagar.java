@@ -11,8 +11,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import vista.InterfazArriendosPagar;
-
 import modelo.Cliente;
 import modelo.ArriendoCuota;
 
