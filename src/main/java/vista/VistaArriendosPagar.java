@@ -7,10 +7,15 @@ package vista;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import modelo.Cliente;
+
 import vista.InterfazArriendosPagar;
+
+import modelo.Cliente;
+import modelo.ArriendoCuota;
+
 /**
  *
  * @author xavie
@@ -38,6 +43,7 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
         ddlCliente = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstArriendosDelCliente = new javax.swing.JList<>();
+        btnBuscar = new javax.swing.JButton();
 
         jLabel1.setText("Pagar Cuotas Arriendos");
 
@@ -50,7 +56,10 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        lstArriendosDelCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(lstArriendosDelCliente);
+
+        btnBuscar.setText("Buscar arriendos del cliente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -58,12 +67,16 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVolver)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(461, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addComponent(btnVolver)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar)))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,10 +84,12 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(btnVolver)
                 .addContainerGap())
         );
@@ -82,6 +97,7 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> ddlCliente;
     private javax.swing.JLabel jLabel1;
@@ -98,6 +114,8 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
     public void registrarEscuchador(ActionListener escuchador){
         this.btnVolver.addActionListener(escuchador);
         this.btnVolver.setActionCommand(VOLVER);
+        this.btnBuscar.addActionListener(escuchador);
+        this.btnBuscar.setActionCommand(BUSCAR);
     }
     
     @Override
@@ -129,7 +147,7 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
     }
     
     @Override
-    public void setDllCliente(String cedula, ArrayList<Cliente> clientes){
+    public void setDllCliente(ArrayList<Cliente> clientes){
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
         this.ddlCliente.setModel(model);
         
@@ -138,11 +156,19 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
             Cliente cliente = clientes.get(i);
 
             model.addElement(cliente.toString());
-            
-            if (cliente.getCedula().equals(cedula)){
-                model.setSelectedItem(cliente.toString());
-            }
         }//for
     }
-
+    
+    @Override
+    public void setLstArriendosDelCliente(ArrayList<ArriendoCuota> arriendos){
+        DefaultListModel<String> model = new DefaultListModel();
+        this.lstArriendosDelCliente.setModel(model);
+            if (arriendos != null && arriendos.size() > 0){
+                for(int i = 0; i < arriendos.size(); i++) {
+                ArriendoCuota arriendo = arriendos.get(i);
+                model.addElement(arriendo.getVehiculo().getPatente() + " - " + arriendo.getVehiculo().getMarca() + "/" + arriendo.getVehiculo().getModelo());    
+            }//for
+        }//if
+    }
+    
 }

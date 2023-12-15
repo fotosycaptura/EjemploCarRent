@@ -6,6 +6,7 @@ package vista;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import modelo.ArriendoCuota;
 import modelo.Cliente;
 import modelo.Vehiculo;
 import modelo.CuotaArriendo;
@@ -16,9 +17,11 @@ import modelo.CuotaArriendo;
  */
 public interface InterfazArriendosPagar {
     public final String VOLVER = "VOLVER";
+    public final String BUSCAR = "BUSCAR";
     public JPanel getPanel();
     public void registrarEscuchador(ActionListener escuchador);
     public int mostrarMensaje(int tipoMensaje, String msj);
     public String getClienteSeleccionado();
-    public void setDllCliente(String cedula, ArrayList<Cliente> clientes);
+    public void setDllCliente(ArrayList<Cliente> clientes);
+    public void setLstArriendosDelCliente(ArrayList<ArriendoCuota> arriendos);
 }

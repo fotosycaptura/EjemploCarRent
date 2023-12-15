@@ -25,13 +25,15 @@ public class ControladorArriendosPagar implements ActionListener {
     private InterfazArriendosPagar vista = new VistaArriendosPagar();
     private ArrayList<Cliente> clientes;
     private ArrayList<Vehiculo> Vehiculo;
-    private ArrayList<ArriendoCuota> cuotas;
+    private ArrayList<ArriendoCuota> modelo;
     
 
-    public ControladorArriendosPagar(vista.InterfazArriendosPagar vista, ArrayList<ArriendoCuota> cuotas, ArrayList<Cliente> clientes, ArrayList<Vehiculo> vehiculos) {
+    public ControladorArriendosPagar(vista.InterfazArriendosPagar vista, ArrayList<ArriendoCuota> modelo, ArrayList<Cliente> clientes, ArrayList<Vehiculo> vehiculos) {
+        setModelo(modelo);
         setVista(vista);
         setClientes(clientes);
         getVista().registrarEscuchador(this);
+        getVista().setLstArriendosDelCliente(null);
     }
 
     @Override
@@ -40,10 +42,18 @@ public class ControladorArriendosPagar implements ActionListener {
         String command = e.getActionCommand();
         
         if (command.equals(getVista().VOLVER)) {
+            
             //Se remueve el panel
             contenido.remove(getVista().getPanel());
             //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
+            
+        } else if (command.equals(getVista().BUSCAR)) {
+            System.out.println(getVista().getClienteSeleccionado());
+            getVista().setLstArriendosDelCliente(ArriendoCuota.buscarArriendo(
+                    Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0,10), getClientes()),
+                    getModelo()));
+            
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }//if
@@ -64,6 +74,7 @@ public class ControladorArriendosPagar implements ActionListener {
      */
     public void setClientes(ArrayList<Cliente> clientes) {
         this.clientes = clientes;
+        getVista().setDllCliente(getClientes());
     }
 
     /**
@@ -79,6 +90,18 @@ public class ControladorArriendosPagar implements ActionListener {
     public void setVista(InterfazArriendosPagar vista) {
         this.vista = vista;
     }
-    
-    
+
+    /**
+     * @return the cuotas
+     */
+    public ArrayList<ArriendoCuota> getModelo() {
+        return this.modelo;
+    }
+
+    /**
+     * @param cuotas the cuotas to set
+     */
+    public void setModelo(ArrayList<ArriendoCuota> modelo) {
+        this.modelo = modelo;
+    }
 }

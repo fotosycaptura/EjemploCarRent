@@ -138,4 +138,21 @@ public class ArriendoCuota extends Arriendo {
         }
         return null;
     }
+    
+    /**
+     * Busca arriendos cuotas en base a la cédula del cliente
+     * Retorna un ArrayList ArriendoCuota
+     * @param cliente
+     * @param arriendos
+     * @return 
+     */
+    public static ArrayList<ArriendoCuota> buscarArriendo(Cliente cliente, ArrayList<ArriendoCuota> arriendos){
+        ArrayList<ArriendoCuota> lstResultados = new ArrayList<ArriendoCuota>();
+        for (ArriendoCuota arriendo: arriendos){
+            if (arriendo.getCliente().getCedula().equals(cliente.getCedula())){
+                lstResultados.add(arriendo);
+            }
+        }
+        return lstResultados;
+    }
 }
