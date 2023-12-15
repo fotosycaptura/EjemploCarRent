@@ -14,7 +14,7 @@ import vista.InterfazArriendosArrendar;
 import vista.VistaArriendosArrendar;
 import modelo.Vehiculo;
 import modelo.Cliente;
-import modelo.CuotaArriendo;
+
 /**
  *
  * @author xavie
