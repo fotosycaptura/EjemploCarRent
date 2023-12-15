@@ -47,10 +47,24 @@ public class ControladorArriendosPagar implements ActionListener {
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
             
         } else if (command.equals(getVista().BUSCAR)) {
-            System.out.println(getVista().getClienteSeleccionado());
+
             getVista().setLstArriendosDelCliente(ArriendoCuota.buscarArriendo(
                     Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0,10), getClientes()),
                     getModelo()));
+        
+        } else if (command.equals(getVista().BUSCAR_CUOTAS)){
+            System.out.println(getVista().getArriendoSeleccionado());
+            if (getVista().getClienteSeleccionado() != null && !getVista().getClienteSeleccionado().equals("--Seleccione Cliente--")){
+                
+            }else{
+                getVista().mostrarMensaje(3, "Seleccione un cliente antes de proceder");
+                return;
+            }
+            
+            if (getVista().getArriendoSeleccionado() == null){
+                getVista().mostrarMensaje(3, "Seleccione un arriendo antes de proceder");
+                return;
+            }
             
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");

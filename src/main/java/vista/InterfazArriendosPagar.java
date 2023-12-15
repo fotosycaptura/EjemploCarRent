@@ -18,10 +18,12 @@ import modelo.CuotaArriendo;
 public interface InterfazArriendosPagar {
     public final String VOLVER = "VOLVER";
     public final String BUSCAR = "BUSCAR";
+    public final String BUSCAR_CUOTAS = "BUSCAR_CUOTAS";
     public JPanel getPanel();
     public void registrarEscuchador(ActionListener escuchador);
     public int mostrarMensaje(int tipoMensaje, String msj);
     public String getClienteSeleccionado();
     public void setDllCliente(ArrayList<Cliente> clientes);
     public void setLstArriendosDelCliente(ArrayList<ArriendoCuota> arriendos);
+    public String getArriendoSeleccionado();
 }
