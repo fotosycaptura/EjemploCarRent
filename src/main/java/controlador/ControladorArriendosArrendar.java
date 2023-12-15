@@ -46,7 +46,6 @@ public class ControladorArriendosArrendar implements ActionListener {
             //Se activa el panel anterior
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
         } else if (command.equals(getVista().GUARDAR_ARRIENDO)){
-
             try {
                 //La fecha se convierte en una que se pueda manejar por el sistema
                 GregorianCalendar fecha = ArriendoCuota.ConvertFecha(getVista().getFecha());
@@ -89,8 +88,53 @@ public class ControladorArriendosArrendar implements ActionListener {
             } catch(Exception ex){
                 getVista().mostrarMensaje(3, "Ocurrió un error: " + ex.getMessage());
             }//trycatch
+        } else if (command.equals(getVista().PAGAR_PRIMERA_CUOTA)){
+            /**
+             * Se debe de obtener cliente y vehículo para proceder a buscar el arriendo
+             * Porque el usuario puede ir y darle clic en ese botón sin haber buscado o arrendado algo antes.
+             * Por lo que habría que en cierta forma, buscar y "cargar" ese arriendo en la vista y ahí pagar 
+             * la primera cuota, si ya se encontraba pagada, habría que notificarlo.
+             */
+            try{
+                ArriendoCuota arriendoBuscado = ArriendoCuota.buscarArriendo(
+                        Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0, 10), getClientes()),
+                        Vehiculo.buscarVehiculo(getVista().getVehiculoSeleccionado().substring(0,8), getVehiculos()),
+                        getModelo());
+                if (arriendoBuscado != null){
+                    //Se encontró el arriendo
+                    //Se setea cliente
+                    getVista().setDllCliente(arriendoBuscado.getCliente().getCedula(), getClientes());
+                    //Se setea vehículo
+                    getVista().setDllVehiculos(arriendoBuscado.getVehiculo().getPatente(), getVehiculos());
+                    //Se setea fecha arriendo
+                    getVista().setFecha(ArriendoCuota.ConvertFecha(arriendoBuscado.getFechaArriendo()));
+                    //Se setea cantidad cuotas
+                    getVista().setCantidadCuotas(arriendoBuscado.getCantCuotas());
+                    //Se setea días
+                    getVista().setDias(arriendoBuscado.getDias());
+                    //Se setea precio por día
+                    getVista().setPrecioPorDia(arriendoBuscado.getVehiculo().getPrecioArriendo());
+                    //Se setea el monto a pagar
+                    getVista().setMontoAPagar(String.valueOf(arriendoBuscado.obtenerMonto()));
+                    //Se setean las cuotas por pagar
+                    getVista().setMostrarCuotas(arriendoBuscado.getCuotas());
                     
-            System.out.println(getVista().getClienteSeleccionado());
+                    //Se verifica si la primera cuota se encuentra pagada de antes o no.
+                    if (!arriendoBuscado.getCuotas().getFirst().isPagada()){
+                        if (getVista().mostrarMensaje(2, "¿Confirma pago primera cuota?") == 0){
+                            
+                        }else{
+                            getVista().mostrarMensaje(1, "Operación cancelada.");
+                        }//if
+                    }else{
+                        getVista().mostrarMensaje(1, "La primera cuota ya se encontraba pagada.");
+                    }//if
+                }else{
+                    getVista().mostrarMensaje(1, "Arriendo no encontrado para el cliente y vehículo seleccionado");
+                }//if
+            }catch(Exception ex){
+                getVista().mostrarMensaje(3, "No se pudo completar la operación: \n" + ex.getMessage());
+            }//trycatch
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }

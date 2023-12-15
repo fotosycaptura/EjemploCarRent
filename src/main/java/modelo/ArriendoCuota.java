@@ -93,7 +93,12 @@ public class ArriendoCuota extends Arriendo {
         arriendos.add(arriendo);
         return arriendos;
     }
-    
+    /**
+     * Método para convertir la fecha de string a gregorian calendar
+     * @param fecha
+     * @return
+     * @throws ParseException 
+     */
     public static GregorianCalendar ConvertFecha(String fecha) throws ParseException {
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         Date dFecha = fmt.parse(fecha);
@@ -101,6 +106,14 @@ public class ArriendoCuota extends Arriendo {
         GregorianCalendar fechaConvertida = new GregorianCalendar();
         fechaConvertida.setTime(dFecha);
         return fechaConvertida;
+    }
+    
+    public static String ConvertFecha(GregorianCalendar fecha) throws ParseException {
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+        fmt.setCalendar(fecha);
+        
+        String fechaFormateada = fmt.format(fecha.getTime());
+        return fechaFormateada;
     }
     
     /**
@@ -114,5 +127,15 @@ public class ArriendoCuota extends Arriendo {
         String fechaFormateada = fmt.format(fechaHoy.getTime());
 
         return fechaFormateada;
+    }
+    
+    //Falta poder buscar el arriendo mediante la patente del vehículo y el cliente.
+    public static ArriendoCuota buscarArriendo(Cliente cliente, Vehiculo vehiculo, ArrayList<ArriendoCuota> arriendos){
+        for (ArriendoCuota arriendo: arriendos){
+            if (arriendo.getCliente().getCedula().equals(cliente.getCedula()) && arriendo.getVehiculo().getPatente().equals(vehiculo.getPatente())){
+                return arriendo;
+            }
+        }
+        return null;
     }
 }
