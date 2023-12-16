@@ -48,6 +48,12 @@ public class ControladorArriendosPagar implements ActionListener {
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
             
         } else if (command.equals(getVista().BUSCAR)) {
+            
+            /**
+             * Se valida si hay un cliente seleccionado
+             * Se busca el o los arriendos del cliente
+             * Se despliegan los arriendo encontrados
+             */
 
             if (!(getVista().getClienteSeleccionado() != null && !getVista().getClienteSeleccionado().equals("--Seleccione Cliente--"))){
                 getVista().mostrarMensaje(3, "Seleccione un cliente antes de proceder");
@@ -60,7 +66,13 @@ public class ControladorArriendosPagar implements ActionListener {
                     getModelo()));
         
         } else if (command.equals(getVista().BUSCAR_CUOTAS)){
-            System.out.println("Se buscan las cuotas...");
+            
+            /**
+             * Se valida si hay un cliente seleccionado
+             * Se valida que haya un arriendo seleccionado
+             * Se buscan las cuotas asociadas al arriendo seleccionado
+             */
+            
             if (!(getVista().getClienteSeleccionado() != null && !getVista().getClienteSeleccionado().equals("--Seleccione Cliente--"))){
                 getVista().mostrarMensaje(3, "Seleccione un cliente antes de proceder");
                 getVista().vaciarCosas();
