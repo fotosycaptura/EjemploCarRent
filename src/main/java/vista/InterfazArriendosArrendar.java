@@ -16,6 +16,7 @@ import modelo.CuotaArriendo;
  */
 public interface InterfazArriendosArrendar {
     public final String GUARDAR_ARRIENDO = "GUARDAR_ARRIENDO";
+    public final String PAGAR_PRIMERA_CUOTA = "PAGAR_PRIMERA_CUOTA";
     public final String VOLVER = "VOLVER";
     
     public JPanel getPanel();
@@ -23,16 +24,20 @@ public interface InterfazArriendosArrendar {
     public void vaciarCampos();
     public int mostrarMensaje(int tipoMensaje, String msj);
     public void setDllCliente(ArrayList<Cliente> clientes);
+    public void setDllCliente(String cedula, ArrayList<Cliente> clientes);
     public void setDllVehiculos(ArrayList<Vehiculo> vehiculos);
     public void setDllVehiculos(String patente, ArrayList<Vehiculo> vehiculos);
     public String getClienteSeleccionado();
     public String getVehiculoSeleccionado();
     public String getFecha();
-    public String getDias();
-    public String getCantidadCuotas();
-    public String getPrecioArriendoPorDia();
-    public void setMontoAPagar(String monto);
     public void setFecha(String fecha);
+    public String getDias();
+    public void setDias(int NumDias);
+    public String getCantidadCuotas();
+    public void setCantidadCuotas(int NumCuotas);
+    public String getPrecioArriendoPorDia();
+    public void setPrecioPorDia(int PrecioPorDia);
+    public void setMontoAPagar(String monto);
     public void setMostrarCuotas(ArrayList<CuotaArriendo> cuotas);
 
 }

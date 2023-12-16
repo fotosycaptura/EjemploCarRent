@@ -15,6 +15,7 @@ import modelo.Cliente;
 import vista.InterfazArriendos;
 import vista.VistaArriendos;
 import vista.VistaArriendosArrendar;
+import vista.VistaArriendosPagar;
 
 /**
  *
@@ -37,7 +38,9 @@ public class ControladorArriendos implements ActionListener{
         
         if (command.equals(getVista().LISTAR)){
             getVista().mostrarMensaje(0, "No implementado");
+            
         } else if (command.equals(getVista().ARRENDAR)){
+            
             ControladorArriendosArrendar controlador = new ControladorArriendosArrendar(
                     new VistaArriendosArrendar(), 
                     getModelo(),
@@ -46,8 +49,18 @@ public class ControladorArriendos implements ActionListener{
             );
             getVista().getPanel().setVisible(false);
             contenido.add(controlador.getVista().getPanel());
+            
         } else if (command.equals(getVista().PAGAR)){
-            getVista().mostrarMensaje(0, "No implementado");
+            
+            ControladorArriendosPagar controlador = new ControladorArriendosPagar(
+                    new VistaArriendosPagar(), 
+                    getModelo(),
+                    getClientes(),
+                    getVehiculos()
+            );
+            getVista().getPanel().setVisible(false);
+            contenido.add(controlador.getVista().getPanel());
+            
         } else if (command.equals(getVista().VOLVER)) {
             contenido.remove(getVista().getPanel());
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);

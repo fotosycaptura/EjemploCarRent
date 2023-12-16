@@ -93,7 +93,12 @@ public class ArriendoCuota extends Arriendo {
         arriendos.add(arriendo);
         return arriendos;
     }
-    
+    /**
+     * Método para convertir la fecha de string a gregorian calendar
+     * @param fecha
+     * @return
+     * @throws ParseException 
+     */
     public static GregorianCalendar ConvertFecha(String fecha) throws ParseException {
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         Date dFecha = fmt.parse(fecha);
@@ -101,6 +106,14 @@ public class ArriendoCuota extends Arriendo {
         GregorianCalendar fechaConvertida = new GregorianCalendar();
         fechaConvertida.setTime(dFecha);
         return fechaConvertida;
+    }
+    
+    public static String ConvertFecha(GregorianCalendar fecha) throws ParseException {
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+        fmt.setCalendar(fecha);
+        
+        String fechaFormateada = fmt.format(fecha.getTime());
+        return fechaFormateada;
     }
     
     /**
@@ -114,5 +127,58 @@ public class ArriendoCuota extends Arriendo {
         String fechaFormateada = fmt.format(fechaHoy.getTime());
 
         return fechaFormateada;
+    }
+    
+    /**
+     * Busca un arriendo mediante el cliente y el vehículo
+     * @param cliente
+     * @param vehiculo
+     * @param arriendos
+     * @return 
+     */
+    public static ArriendoCuota buscarArriendo(Cliente cliente, Vehiculo vehiculo, ArrayList<ArriendoCuota> arriendos){
+        for (ArriendoCuota arriendo: arriendos){
+            if (arriendo.getCliente().getCedula().equals(cliente.getCedula()) && arriendo.getVehiculo().getPatente().equals(vehiculo.getPatente())){
+                return arriendo;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Busca un arriendo mediante el ID por decirlo así
+     * @param numID
+     * @param arriendos
+     * @return 
+     */
+    public static ArriendoCuota buscarArriendo(int numID, ArrayList<ArriendoCuota> arriendos){
+        for (ArriendoCuota arriendo: arriendos){
+            if (arriendo.getNumero() == numID){
+                return arriendo;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Busca arriendos cuotas en base a la cédula del cliente
+     * Retorna un ArrayList ArriendoCuota
+     * @param cliente
+     * @param arriendos
+     * @return 
+     */
+    public static ArrayList<ArriendoCuota> buscarArriendo(Cliente cliente, ArrayList<ArriendoCuota> arriendos){
+        
+        if (cliente == null){
+            throw new IllegalArgumentException("Debe de seleccionar un cliente antes de proceder.");
+        }
+        
+        ArrayList<ArriendoCuota> lstResultados = new ArrayList<ArriendoCuota>();
+        for (ArriendoCuota arriendo: arriendos){
+            if (arriendo.getCliente().getCedula().equals(cliente.getCedula())){
+                lstResultados.add(arriendo);
+            }
+        }
+        return lstResultados;
     }
 }
