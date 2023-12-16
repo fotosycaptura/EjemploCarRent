@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import modelo.ArriendoCuota;
 import modelo.Cliente;
-import modelo.Vehiculo;
 import modelo.CuotaArriendo;
 
 /**
