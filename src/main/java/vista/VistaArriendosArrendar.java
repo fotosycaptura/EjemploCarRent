@@ -54,6 +54,7 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCuotas = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
+        btnPagar = new javax.swing.JButton();
 
         btnVolver.setText("Volver");
 
@@ -100,6 +101,8 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
         jScrollPane1.setViewportView(tblCuotas);
 
         jLabel7.setText("Cuotas a pagar");
+
+        btnPagar.setText("Pagar primera cuota");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -149,9 +152,14 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardarArriendo)
-                            .addComponent(btnVolver))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardarArriendo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnPagar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnVolver)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +198,9 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
                             .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 23, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardarArriendo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarArriendo)
+                    .addComponent(btnPagar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVolver)
                 .addContainerGap())
@@ -200,6 +210,7 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarArriendo;
+    private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> ddlCliente;
     private javax.swing.JComboBox<String> ddlVehiculo;
@@ -230,6 +241,8 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
         this.btnVolver.setActionCommand(VOLVER);
         this.btnGuardarArriendo.addActionListener(escuchador);
         this.btnGuardarArriendo.setActionCommand(GUARDAR_ARRIENDO);
+        this.btnPagar.addActionListener(escuchador);
+        this.btnPagar.setActionCommand(PAGAR_PRIMERA_CUOTA);
     }
     
     @Override
@@ -270,6 +283,23 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
             Cliente cliente = clientes.get(i);
 
             model.addElement(cliente.toString());
+        }//for
+    }
+    
+    @Override
+    public void setDllCliente(String cedula, ArrayList<Cliente> clientes){
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel();
+        this.ddlCliente.setModel(model);
+        
+        model.addElement(new String("--Seleccione Cliente--"));
+        for(int i = 0; i < clientes.size(); i++) {
+            Cliente cliente = clientes.get(i);
+
+            model.addElement(cliente.toString());
+            
+            if (cliente.getCedula().equals(cedula)){
+                model.setSelectedItem(cliente.toString());
+            }
         }//for
     }
     
@@ -362,5 +392,20 @@ public class VistaArriendosArrendar extends javax.swing.JPanel implements Interf
             model.addRow(new Object[]{cuotas.get(i).getNumCuota(), cuotas.get(i).getValorCouta(), (cuotas.get(i).isPagada() ? "Sí": "No")} );
         }//for
         this.tblCuotas.enableInputMethods(false);
+    }
+    
+    @Override
+    public void setCantidadCuotas(int NumCuotas){
+        this.txtNumCuotas.setText(String.valueOf(NumCuotas));
+    }
+    
+    @Override
+    public void setDias(int NumDias){
+        this.txtDias.setText(String.valueOf(NumDias));
+    }
+    
+    @Override
+    public void setPrecioPorDia(int PrecioPorDia){
+        this.txtPrecioDia.setText(String.valueOf(PrecioPorDia));
     }
 }

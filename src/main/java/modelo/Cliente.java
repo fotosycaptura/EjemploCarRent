@@ -149,6 +149,10 @@ public class Cliente {
      * @return 
      */
     public static Cliente buscarCliente(String cedula, ArrayList<Cliente> clientes){
+        if (clientes != null && clientes.isEmpty()){
+            return null;
+        }
+        
         for (Cliente cliente: clientes){
             if (cliente.getCedula().equals(cedula)){
                 return cliente;
