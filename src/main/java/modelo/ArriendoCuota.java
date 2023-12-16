@@ -129,10 +129,31 @@ public class ArriendoCuota extends Arriendo {
         return fechaFormateada;
     }
     
-    //Falta poder buscar el arriendo mediante la patente del vehículo y el cliente.
+    /**
+     * Busca un arriendo mediante el cliente y el vehículo
+     * @param cliente
+     * @param vehiculo
+     * @param arriendos
+     * @return 
+     */
     public static ArriendoCuota buscarArriendo(Cliente cliente, Vehiculo vehiculo, ArrayList<ArriendoCuota> arriendos){
         for (ArriendoCuota arriendo: arriendos){
             if (arriendo.getCliente().getCedula().equals(cliente.getCedula()) && arriendo.getVehiculo().getPatente().equals(vehiculo.getPatente())){
+                return arriendo;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Busca un arriendo mediante el ID por decirlo así
+     * @param numID
+     * @param arriendos
+     * @return 
+     */
+    public static ArriendoCuota buscarArriendo(int numID, ArrayList<ArriendoCuota> arriendos){
+        for (ArriendoCuota arriendo: arriendos){
+            if (arriendo.getNumero() == numID){
                 return arriendo;
             }
         }

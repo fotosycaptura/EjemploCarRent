@@ -86,12 +86,104 @@ public class ControladorArriendosPagar implements ActionListener {
             }//if
             
             //Se buscan las cuotas y se traspasan
-            ArriendoCuota arriendoEncontrado = ArriendoCuota.buscarArriendo(
-                    Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0,10), getClientes()),
-                    Vehiculo.buscarVehiculo(getVista().getArriendoSeleccionado().substring(0, 8), getVehiculos()),
-                    getModelo());
+//            ArriendoCuota arriendoEncontrado = ArriendoCuota.buscarArriendo(
+//                    Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0,10), getClientes()),
+//                   Vehiculo.buscarVehiculo(getVista().getArriendoSeleccionado().substring(0, 8), getVehiculos()),
+//                  getModelo());
+            
+            String numID = getVista().getArriendoSeleccionado();
+            String[] trozos = numID.split(":");
+            if (trozos.length == 0){
+                getVista().mostrarMensaje(3, "Hubo un problema con la búsqueda del arriendo y sus cuotas");
+                return;
+            }
+            
+            ArriendoCuota arriendoEncontrado = ArriendoCuota.buscarArriendo(Integer.parseInt(trozos[0]), getModelo());
+            
             if (arriendoEncontrado != null){
                 getVista().setLstCuotasPorPagar(arriendoEncontrado.getCuotas());
+            }//if
+            
+        } else if (command.equals(getVista().PAGAR_CUOTAS_SELECCIONADAS)){
+            
+            /**
+             * Se valida que haya un cliente seleccionado
+             * Se valida que haya un arriendo seleccionado
+             * Se valida si hay cuotas seleccionadas
+             * 
+             * Luego, se verifica que el cliente y el arriendo existan.
+             * Se extrae el arriendo y las cuotas asociadas
+             * Se marcan como pagadas las cuotas en cuestión
+             */
+            
+            if (!(getVista().getClienteSeleccionado() != null && !getVista().getClienteSeleccionado().equals("--Seleccione Cliente--"))){
+                getVista().mostrarMensaje(3, "Seleccione un cliente antes de proceder");
+                getVista().vaciarCosas();
+                return;
+            }//if
+            
+            if (getVista().getArriendoSeleccionado() == null){
+                getVista().mostrarMensaje(3, "Seleccione un arriendo antes de proceder");
+                getVista().setLstCuotasPorPagar(null);
+                return;
+            }//if
+            
+            if (getVista().getCuotasSeleccionadas() == null){
+                getVista().mostrarMensaje(3, "Seleccione al menos una cuota antes de proceder");
+                return;
+            }
+            
+            //Se buscan las cuotas y se traspasan
+            String numID = getVista().getArriendoSeleccionado();
+            String[] trozos = numID.split(":");
+            if (trozos.length == 0){
+                getVista().mostrarMensaje(3, "Hubo un problema con la búsqueda del arriendo y sus cuotas");
+                return;
+            }
+            
+            ArriendoCuota arriendoEncontrado = ArriendoCuota.buscarArriendo(Integer.parseInt(trozos[0]), getModelo());
+            
+            if (arriendoEncontrado == null){
+                getVista().mostrarMensaje(3, "Hubo un problema con la búsqueda del arriendo");
+               return;
+            }//if
+             
+            ArrayList<String> cuotasSeleccionadas = getVista().getCuotasSeleccionadas();
+
+            if (cuotasSeleccionadas.size() > 0){
+                
+                if (getVista().mostrarMensaje(2, "¿Está seguro de realizar esta operación?") == 0){
+                    //Ciclo para recorrer las cuotas seleccionadas
+                    for (int i=0; i < cuotasSeleccionadas.size(); i++){
+                        String[] idArriendo = cuotasSeleccionadas.get(i).split(":");
+                        if (trozos.length == 0){
+                            getVista().mostrarMensaje(3, "Hubo un problema al procesar las cuotas seleccionadas para pagarlas");
+                            return;
+                        }//if
+
+                        //Ciclo para recorrer las cuotas 
+                        for (int j=0; j < arriendoEncontrado.getCuotas().size(); j++){
+                            //Se compara el id de la cuota seleccionada
+                            if (arriendoEncontrado.getCuotas().get(j).getNumCuota() == Integer.parseInt(idArriendo[0])){
+                                //Si es encontrada se marca como pagada si es que no lo estaba ya de antes
+                                if (!arriendoEncontrado.getCuotas().get(j).isPagada()){
+                                    arriendoEncontrado.getCuotas().get(j).setPagada(true);
+                                    //Se sale de este ciclo
+                                    break;
+                                }//if
+                            }//if
+                        }//for
+                    }//for
+
+                    //Ahora que se han pagado todas las cuotas, se debe de volver a refrescar la lista de cuotas
+                    getVista().setLstCuotasPorPagar(arriendoEncontrado.getCuotas());
+            
+                    //Se le notifica al usuario
+                    getVista().mostrarMensaje(1, "Pago procesado");
+                }else{
+                    getVista().mostrarMensaje(0, "Operación cancelada");
+                }//if
+                
             }//if
             
         } else {

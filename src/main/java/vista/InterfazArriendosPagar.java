@@ -18,6 +18,7 @@ public interface InterfazArriendosPagar {
     public final String VOLVER = "VOLVER";
     public final String BUSCAR = "BUSCAR";
     public final String BUSCAR_CUOTAS = "BUSCAR_CUOTAS";
+    public final String PAGAR_CUOTAS_SELECCIONADAS = "PAGAR_CUOTAS_SELECCIONADAS";
     public JPanel getPanel();
     public void registrarEscuchador(ActionListener escuchador);
     public int mostrarMensaje(int tipoMensaje, String msj);
@@ -27,4 +28,5 @@ public interface InterfazArriendosPagar {
     public String getArriendoSeleccionado();
     public void setLstCuotasPorPagar(ArrayList<CuotaArriendo> cuotasArriendos);
     public void vaciarCosas();
+    public ArrayList<String> getCuotasSeleccionadas();
 }

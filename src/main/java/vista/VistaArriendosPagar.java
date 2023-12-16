@@ -174,6 +174,8 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
         this.btnBuscar.setActionCommand(BUSCAR);
         this.btnVerCuotas.addActionListener(escuchador);
         this.btnVerCuotas.setActionCommand(BUSCAR_CUOTAS);
+        this.btnPagarCuotas.addActionListener(escuchador);
+        this.btnPagarCuotas.setActionCommand(PAGAR_CUOTAS_SELECCIONADAS);
     }
     
     @Override
@@ -224,7 +226,7 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
             if (arriendos != null && !arriendos.isEmpty()){
                 for(int i = 0; i < arriendos.size(); i++) {
                 ArriendoCuota arriendo = arriendos.get(i);
-                model.addElement(arriendo.getVehiculo().getPatente() + " - " + arriendo.getVehiculo().getMarca() + "/" + arriendo.getVehiculo().getModelo());    
+                model.addElement(arriendo.getNumero() + ": " + arriendo.getVehiculo().getPatente() + " - " + arriendo.getVehiculo().getMarca() + "/" + arriendo.getVehiculo().getModelo());    
             }//for
         }//if
     }
@@ -241,7 +243,7 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
             if (cuotasArriendos != null && !cuotasArriendos.isEmpty()){
                 for(int i = 0; i < cuotasArriendos.size(); i++) {
                 CuotaArriendo cuotasDelCliente = cuotasArriendos.get(i);
-                model.addElement(String.valueOf(cuotasDelCliente.getNumCuota()) + " - " + String.valueOf(cuotasDelCliente.getValorCouta()) + " - " + (cuotasDelCliente.isPagada() ? "Sí" : "No"));
+                model.addElement(String.valueOf(cuotasDelCliente.getNumCuota()) + ": $" + String.valueOf(cuotasDelCliente.getValorCouta()) + " - " + (cuotasDelCliente.isPagada() ? "Sí" : "No"));
             }//for
         }//if
     }
@@ -250,6 +252,18 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
     public void vaciarCosas(){
         this.setLstArriendosDelCliente(null);
         this.setLstCuotasPorPagar(null);
+    }
+    
+    public ArrayList<String> getCuotasSeleccionadas(){
+        ArrayList<String> selecciones = new ArrayList<String>();
+
+        int[] selectedIx = this.lstCuotasPorPagar.getSelectedIndices();      
+
+        for (int i = 0; i < selectedIx.length; i++) {
+            selecciones.add(lstCuotasPorPagar.getModel().getElementAt(selectedIx[i]));
+        }
+        
+        return selecciones;
     }
     
 }
