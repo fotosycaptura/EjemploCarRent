@@ -30,6 +30,7 @@ public class ControladorArriendosPagar implements ActionListener {
         setModelo(modelo);
         setVista(vista);
         setClientes(clientes);
+        setVehiculos(vehiculos);
         getVista().registrarEscuchador(this);
         getVista().setLstArriendosDelCliente(null);
     }
@@ -53,18 +54,16 @@ public class ControladorArriendosPagar implements ActionListener {
                     getModelo()));
         
         } else if (command.equals(getVista().BUSCAR_CUOTAS)){
-            System.out.println(getVista().getArriendoSeleccionado());
-            if (getVista().getClienteSeleccionado() != null && !getVista().getClienteSeleccionado().equals("--Seleccione Cliente--")){
-                
-            }else{
+            System.out.println("Se buscan las cuotas...");
+            if (!(getVista().getClienteSeleccionado() != null && !getVista().getClienteSeleccionado().equals("--Seleccione Cliente--"))){
                 getVista().mostrarMensaje(3, "Seleccione un cliente antes de proceder");
                 return;
-            }
+            }//if
             
             if (getVista().getArriendoSeleccionado() == null){
                 getVista().mostrarMensaje(3, "Seleccione un arriendo antes de proceder");
                 return;
-            }
+            }//if
             
             //Se buscan las cuotas y se traspasan
             ArriendoCuota arriendoEncontrado = ArriendoCuota.buscarArriendo(
@@ -127,5 +126,9 @@ public class ControladorArriendosPagar implements ActionListener {
     
     public ArrayList<Vehiculo> getVehiculos(){
         return this.vehiculos;
+    }
+    
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos){
+        this.vehiculos = vehiculos;
     }
 }
