@@ -22,7 +22,7 @@ import modelo.ArriendoCuota;
 public class ControladorArriendosPagar implements ActionListener {
     private InterfazArriendosPagar vista = new VistaArriendosPagar();
     private ArrayList<Cliente> clientes;
-    private ArrayList<Vehiculo> Vehiculo;
+    private ArrayList<Vehiculo> vehiculos;
     private ArrayList<ArriendoCuota> modelo;
     
 
@@ -66,6 +66,14 @@ public class ControladorArriendosPagar implements ActionListener {
                 return;
             }
             
+            //Se buscan las cuotas y se traspasan
+            ArriendoCuota arriendoEncontrado = ArriendoCuota.buscarArriendo(
+                    Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0,10), getClientes()),
+                    Vehiculo.buscarVehiculo(getVista().getArriendoSeleccionado().substring(0, 8), getVehiculos()),
+                    getModelo());
+            if (arriendoEncontrado != null){
+                arriendoEncontrado.getCuotas();
+            }//if
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }//if
@@ -115,5 +123,9 @@ public class ControladorArriendosPagar implements ActionListener {
      */
     public void setModelo(ArrayList<ArriendoCuota> modelo) {
         this.modelo = modelo;
+    }
+    
+    public ArrayList<Vehiculo> getVehiculos(){
+        return this.vehiculos;
     }
 }
