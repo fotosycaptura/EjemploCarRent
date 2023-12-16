@@ -149,7 +149,7 @@ public class Cliente {
      * @return 
      */
     public static Cliente buscarCliente(String cedula, ArrayList<Cliente> clientes){
-        if (clientes.isEmpty()){
+        if (clientes != null && clientes.isEmpty()){
             return null;
         }
         

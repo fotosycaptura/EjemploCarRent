@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import modelo.Cliente;
 import modelo.ArriendoCuota;
+import modelo.CuotaArriendo;
 
 /**
  *
@@ -25,6 +26,7 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
      */
     public VistaArriendosPagar() {
         initComponents();
+        setLstCuotasPorPagar(null);
     }
 
     /**
@@ -43,6 +45,10 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
         lstArriendosDelCliente = new javax.swing.JList<>();
         btnBuscar = new javax.swing.JButton();
         btnVerCuotas = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstCuotasPorPagar = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
+        btnPagarCuotas = new javax.swing.JButton();
 
         jLabel1.setText("Pagar Cuotas Arriendos");
 
@@ -62,42 +68,78 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
 
         btnVerCuotas.setText("Mostrar pagos arriendos seleccionado >>");
 
+        lstCuotasPorPagar.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(lstCuotasPorPagar);
+
+        jLabel2.setText("Núm. - Valor - Pagada");
+
+        btnPagarCuotas.setText("Pagar seleccionadas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(btnVolver)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVerCuotas))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)))
-                .addContainerGap(194, Short.MAX_VALUE))
+                        .addComponent(btnBuscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVolver)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(btnPagarCuotas)
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ddlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(84, 84, 84)
+                                .addComponent(btnVerCuotas))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(btnVerCuotas)))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPagarCuotas)
+                        .addGap(7, 7, 7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(btnVolver)
                 .addContainerGap())
@@ -107,12 +149,16 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnPagarCuotas;
     private javax.swing.JButton btnVerCuotas;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> ddlCliente;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> lstArriendosDelCliente;
+    private javax.swing.JList<String> lstCuotasPorPagar;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -186,6 +232,24 @@ public class VistaArriendosPagar extends javax.swing.JPanel implements InterfazA
     @Override
     public String getArriendoSeleccionado(){
         return this.lstArriendosDelCliente.getSelectedValue();
+    }
+    
+    @Override
+    public void setLstCuotasPorPagar(ArrayList<CuotaArriendo> cuotasArriendos){
+        DefaultListModel<String> model = new DefaultListModel();
+        this.lstCuotasPorPagar.setModel(model);
+            if (cuotasArriendos != null && !cuotasArriendos.isEmpty()){
+                for(int i = 0; i < cuotasArriendos.size(); i++) {
+                CuotaArriendo cuotasDelCliente = cuotasArriendos.get(i);
+                model.addElement(String.valueOf(cuotasDelCliente.getNumCuota()) + " - " + String.valueOf(cuotasDelCliente.getValorCouta()) + " - " + (cuotasDelCliente.isPagada() ? "Sí" : "No"));
+            }//for
+        }//if
+    }
+    
+    @Override
+    public void vaciarCosas(){
+        this.setLstArriendosDelCliente(null);
+        this.setLstCuotasPorPagar(null);
     }
     
 }

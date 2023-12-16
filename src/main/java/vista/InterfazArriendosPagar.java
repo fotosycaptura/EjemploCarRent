@@ -26,4 +26,6 @@ public interface InterfazArriendosPagar {
     public void setDllCliente(ArrayList<Cliente> clientes);
     public void setLstArriendosDelCliente(ArrayList<ArriendoCuota> arriendos);
     public String getArriendoSeleccionado();
+    public void setLstCuotasPorPagar(ArrayList<CuotaArriendo> cuotasArriendos);
+    public void vaciarCosas();
 }

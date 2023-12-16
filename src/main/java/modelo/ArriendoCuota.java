@@ -147,6 +147,11 @@ public class ArriendoCuota extends Arriendo {
      * @return 
      */
     public static ArrayList<ArriendoCuota> buscarArriendo(Cliente cliente, ArrayList<ArriendoCuota> arriendos){
+        
+        if (cliente == null){
+            throw new IllegalArgumentException("Debe de seleccionar un cliente antes de proceder.");
+        }
+        
         ArrayList<ArriendoCuota> lstResultados = new ArrayList<ArriendoCuota>();
         for (ArriendoCuota arriendo: arriendos){
             if (arriendo.getCliente().getCedula().equals(cliente.getCedula())){

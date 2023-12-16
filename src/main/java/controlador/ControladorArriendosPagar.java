@@ -49,6 +49,12 @@ public class ControladorArriendosPagar implements ActionListener {
             
         } else if (command.equals(getVista().BUSCAR)) {
 
+            if (!(getVista().getClienteSeleccionado() != null && !getVista().getClienteSeleccionado().equals("--Seleccione Cliente--"))){
+                getVista().mostrarMensaje(3, "Seleccione un cliente antes de proceder");
+                getVista().vaciarCosas();
+                return;
+            }//if
+
             getVista().setLstArriendosDelCliente(ArriendoCuota.buscarArriendo(
                     Cliente.buscarCliente(getVista().getClienteSeleccionado().substring(0,10), getClientes()),
                     getModelo()));
@@ -57,11 +63,13 @@ public class ControladorArriendosPagar implements ActionListener {
             System.out.println("Se buscan las cuotas...");
             if (!(getVista().getClienteSeleccionado() != null && !getVista().getClienteSeleccionado().equals("--Seleccione Cliente--"))){
                 getVista().mostrarMensaje(3, "Seleccione un cliente antes de proceder");
+                getVista().vaciarCosas();
                 return;
             }//if
             
             if (getVista().getArriendoSeleccionado() == null){
                 getVista().mostrarMensaje(3, "Seleccione un arriendo antes de proceder");
+                getVista().setLstCuotasPorPagar(null);
                 return;
             }//if
             
@@ -71,8 +79,9 @@ public class ControladorArriendosPagar implements ActionListener {
                     Vehiculo.buscarVehiculo(getVista().getArriendoSeleccionado().substring(0, 8), getVehiculos()),
                     getModelo());
             if (arriendoEncontrado != null){
-                arriendoEncontrado.getCuotas();
+                getVista().setLstCuotasPorPagar(arriendoEncontrado.getCuotas());
             }//if
+            
         } else {
             throw new UnsupportedOperationException("Acción no implementada.");
         }//if
