@@ -16,6 +16,7 @@ import vista.InterfazArriendos;
 import vista.VistaArriendos;
 import vista.VistaArriendosArrendar;
 import vista.VistaArriendosPagar;
+import vista.VistaArriendosListar;
 
 /**
  *
@@ -37,7 +38,14 @@ public class ControladorArriendos implements ActionListener{
         String command = e.getActionCommand();
         
         if (command.equals(getVista().LISTAR)){
-            getVista().mostrarMensaje(0, "No implementado");
+            
+            ControladorArriendosListar controlador = new ControladorArriendosListar(
+                    new VistaArriendosListar(), 
+                    getModelo()
+            );
+            getVista().getPanel().setVisible(false);
+            contenido.add(controlador.getVista().getPanel());
+            
             
         } else if (command.equals(getVista().ARRENDAR)){
             
