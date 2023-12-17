@@ -23,6 +23,7 @@ public class ControladorArriendosListar implements ActionListener {
         setModelo(modelo);
         setVista(vista);
         getVista().registrarEscuchador(this);
+        getVista().listarArriendos(getModelo());
     }
     
     
@@ -40,6 +41,9 @@ public class ControladorArriendosListar implements ActionListener {
             contenido.getComponent(contenido.getComponentCount() - 1).setVisible(true);
             
         }//if
+        
+        contenido.validate();
+        contenido.repaint();
     }
     
     /**

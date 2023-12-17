@@ -74,12 +74,11 @@ public class ArriendoCuota extends Arriendo {
         int numeroGenerado = 1;
         if (arriendos != null && !arriendos.isEmpty()){
             for (ArriendoCuota arriendo: arriendos){
-                if (arriendo.getNumero() > numeroGenerado){
+                if (arriendo.getNumero() >= numeroGenerado){
                     numeroGenerado = arriendo.getNumero() + 1;
                 }
             }//for
         }//if
-        System.out.println(numeroGenerado);
         return numeroGenerado;
     }
     /**

@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import modelo.ArriendoCuota;
+import Utiles.Archivos;
 
 /**
  *
@@ -34,12 +36,14 @@ public class VistaArriendosListar extends javax.swing.JPanel implements Interfaz
 
         btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblArriendos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+
+        setPreferredSize(new java.awt.Dimension(600, 300));
 
         btnVolver.setText("Volver");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblArriendos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -50,7 +54,7 @@ public class VistaArriendosListar extends javax.swing.JPanel implements Interfaz
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblArriendos);
 
         jLabel1.setText("Lista de arriendos");
 
@@ -61,13 +65,10 @@ public class VistaArriendosListar extends javax.swing.JPanel implements Interfaz
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnVolver)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(btnVolver)
+                    .addComponent(jLabel1))
+                .addContainerGap(502, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,7 +88,7 @@ public class VistaArriendosListar extends javax.swing.JPanel implements Interfaz
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblArriendos;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -122,8 +123,36 @@ public class VistaArriendosListar extends javax.swing.JPanel implements Interfaz
     }
     
     public void listarArriendos(ArrayList<ArriendoCuota> arriendos){
+        //Se establecen las cabeceras de la tabla
+        Object[] header = new Object[]{"Num", "Fecha Arriendo", "Días", "Total", "Patente", "Marca", "Modelo", "Rut", "Cliente"};
         
+        //Se establece un model para la tabla, para evitar la edición por celda.
+        DefaultTableModel model = new DefaultTableModel(header, 0){
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false; 
+            }
+        };
+        
+        this.tblArriendos.setModel(model);
+        
+        for (int i=0; i < arriendos.size(); i++){
+            model.addRow(new Object[]{
+                arriendos.get(i).getNumero(), 
+                Archivos.ConvertFecha(arriendos.get(i).getFechaArriendo()),
+                arriendos.get(i).getDias(),
+                arriendos.get(i).obtenerMonto(),
+                arriendos.get(i).getVehiculo().getPatente(), 
+                arriendos.get(i).getVehiculo().getMarca(), 
+                arriendos.get(i).getVehiculo().getModelo(),
+                arriendos.get(i).getCliente().getCedula(),
+                arriendos.get(i).getCliente().getNombre()
+            } );
+        }//for
+        this.tblArriendos.enableInputMethods(false);
     }
+    
+    
 
 }
 

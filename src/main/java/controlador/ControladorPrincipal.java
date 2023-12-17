@@ -43,6 +43,7 @@ public class ControladorPrincipal implements ActionListener {
     public void iniciar() {
         getVentana().setSize(640, 400);
         //getVentana().setLayout(new BorderLayout());
+        //Para que ocupe todo el espeacio - creo -
         getVentana().setLayout(new GridBagLayout());
         getVentana().setResizable(false);
         //Para centrar en la ventana del usuario
