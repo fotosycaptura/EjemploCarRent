@@ -5,7 +5,9 @@
 package Utiles;
 import java.io.File;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import modelo.Cliente;
 import modelo.Vehiculo;
@@ -18,7 +20,7 @@ public class Archivos {
     /**
      * Encargado de leer el archivo de clientes.
      * Este es un archivo CSV separado por ;
-     * su estructura es de String cedula, String nombre, boolean vigente
+     * su estructura es de cedula;nombre;vigente
      * En caso de no existir el archivo se crea la estructura de memoria (ArrayList) con datos
      * @return 
      */
@@ -55,6 +57,14 @@ public class Archivos {
         return lineasClientes;
     }
     
+    
+    /**
+     * Encargado de leer el archivo de Vehiculos.
+     * Este es un archivo CSV separado por ;
+     * su estructura es de patente;marca;modelo;anho
+     * En caso de no existir el archivo se crea la estructura de memoria (ArrayList) con datos
+     * @return 
+     */
     public static ArrayList<Vehiculo> LeerArchivoVehiculos(){
         //Se genera un ArrayList de clientes vacío
         ArrayList<Vehiculo> lineasVehiculos = new ArrayList<Vehiculo>();
@@ -86,5 +96,19 @@ public class Archivos {
         }
         
         return lineasVehiculos;
+    }
+    
+    public static String ConvertFecha(GregorianCalendar fecha) {
+         String fechaFormateada = "dd-MM-yyyy";
+        try{
+            SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+            fmt.setCalendar(fecha);
+
+            fechaFormateada = fmt.format(fecha.getTime());
+            
+        }catch (Exception ex){
+            System.out.println("Ocurrio un error al convertir la fecha" + ex.getMessage());
+        }
+        return fechaFormateada;
     }
 }
